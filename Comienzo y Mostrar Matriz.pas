@@ -6,8 +6,8 @@ const COLUMNAS = 8;
       FICHA_NEGRA = 2;
 type
   trJugador: record
-    nombre: char(20);
-    letra: char(1);
+    nombre: string[20];
+    letra: char;
     humano: boolean;
     puntos: byte; //en vez contadores sueltos, mejor que quede guardado el puntaje en cada jugador
   end
