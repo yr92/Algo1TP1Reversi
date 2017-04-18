@@ -8,10 +8,10 @@ const
   FICHA_VACIA = 0;
   FICHA_BLANCA = 1;
   FICHA_NEGRA = 2;
-  
-type  
+
+type
   tMatriz = array [1..FILAS,1..COLUMNAS] of byte;
-  
+
 procedure LimpiarMatriz(var mMatriz:tMatriz);
 var
   i,j: byte;
@@ -23,8 +23,7 @@ end;
 
 
 procedure InicializarMatriz(var mMatriz: tMatriz);
-var
-  i,j: byte;
+
 begin
     mMatriz[4,4] := FICHA_BLANCA;
     mMatriz[5,5] := FICHA_BLANCA;
@@ -38,7 +37,7 @@ begin
   InicializarMatriz(mMatriz);
 end;
 
-procedure DibujarTablero (var mMatriz: tMatriz); 
+procedure DibujarTablero (var mMatriz: tMatriz);
 var
   i,j : byte;
 begin
@@ -50,7 +49,10 @@ begin
     for j:=1 to COLUMNAS do
     begin
       write(' ',LIN_VERTICAL,' ');
-      write(mMatriz[i,j]);
+      if (mMatriz[i,j] <> 0) then
+       write(mMatriz[i,j])
+      else
+       write(' ');
     end;
     write(' ', LIN_VERTICAL);
     writeln;
@@ -67,4 +69,4 @@ begin
   ReiniciarMatriz(mMatriz);
   DibujarTablero(mMatriz);
   readln;
-end.
+end.                
