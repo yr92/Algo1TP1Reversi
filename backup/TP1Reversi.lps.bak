@@ -8,29 +8,30 @@
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="69"/>
-        <CursorPos X="55" Y="94"/>
+        <TopLine Value="70"/>
+        <CursorPos X="11" Y="78"/>
         <FoldState Value=" T4405 T3ig04011c"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="m_inicializarmatriz.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="3"/>
+        <TopLine Value="4"/>
         <CursorPos X="48" Y="32"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <UnitName Value="Reversi"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="20" Y="22"/>
-        <UsageCount Value="91"/>
+        <TopLine Value="18"/>
+        <CursorPos X="32" Y="13"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit2>
     </Units>

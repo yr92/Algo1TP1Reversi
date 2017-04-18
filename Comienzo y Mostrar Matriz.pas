@@ -10,9 +10,16 @@ type
     letra: char;
     humano: boolean;
     puntos: byte; //en vez contadores sueltos, mejor que quede guardado el puntaje en cada jugador
+    blancas: boolean; //para diferenciar un jugador de otro
   end
   trCasilla: record
     ficha: byte;
+  end
+  trJugada: record
+    x: byte;
+    y: byte;
+    blancas: boolean; //para ver que jugador hizo la jugada
+    valida: boolean
   end
   tMatriz: array [1..FILAS,1..COLUMNAS] of trCasilla
 var
@@ -20,21 +27,26 @@ var
   jugadorBlanco: trJugador;
   jugadorNegro: trJugador;
   jueganBlancas: boolean;//para ver de quien es el turno
+  gameOver: boolean;//duh
 begin
   //esto de aca abajo esta asi por ahora hasta que determ
   //literalmente copiado del whatsapp, ya entraremos en mas detalles
-  InicializarVariables();
-  PedirNombreYFichas();
-  CrearTablero();
-  DibujarTablero();
-  ReiniciarTablero();
-  HayJugadaValida();//esta deberia ser funcion, por ahora la anoto asi
-  IndicarJugada();
-  HacerJugada();
-  PasarTurno();
-  MostrarPuntos();
-  CasilleroEsValido();
-  JuegoTerminado();
+  repeat
+    InicializarVariables();
+    PedirNombreYFichas();
+    CrearTablero();
+    DibujarTablero();
+    ReiniciarTablero();
+    //empieza el partido
+    if HayJugadaValida() then
+       IndicarJugada();
+       CasilleroEsValido();
+       HacerJugada();
+    end
+    MostrarPuntos();
+    PasarTurno();
+    JuegoTerminado();
+  until gameOver;
 end
 
 procedure mostrarMatriz (var matriz: tMatriz);

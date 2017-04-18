@@ -79,7 +79,7 @@ begin
     mMatriz[4,4].ficha = FICHABLANCA;
     mMatriz[5,5].ficha = FICHABLANCA;
     mMatriz[4,5].ficha = FICHANEGRA;
-    mMatriz[5,4].ficha = FICHANEGRA;
+    mMatriz[4,4].ficha = FICHANEGRA;
 end
 
 

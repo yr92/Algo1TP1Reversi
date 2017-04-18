@@ -22,6 +22,12 @@ type
     procedure WriteHelp; virtual;
   end;
 
+  tFicha = Byte
+
+  trCasillero = record
+      ficha = tFicha;
+  end;
+
 { TP1Reversi }
 
 procedure TP1Reversi.DoRun;
@@ -48,6 +54,34 @@ begin
   // stop program loop
   Terminate;
 end;
+
+procedure ReiniciarMatriz(var mMatriz:tMatriz, maxFilas:int, maxColumnas: int)
+var
+  i,j byte
+begin
+  LimpiarMatriz(mMatriz);
+  InicializarMatriz(mMatriz);
+end
+
+procedure LimpiarMatriz(var mMatriz:tMatriz, maxFilas:int, maxColumnas: int)
+var
+  i,j byte
+begin
+  for i:= 1 to maxFilas do
+    for j:=1 to maxFilas do
+        mMatriz[i,j].ficha = FICHAVACIA;
+end
+
+Procedure InicializarMatriz(var mMatriz:tMatriz)
+var
+  i,j byte
+begin
+    mMatriz[4,4].ficha = FICHABLANCA;
+    mMatriz[5,5].ficha = FICHABLANCA;
+    mMatriz[4,5].ficha = FICHANEGRA;
+    mMatriz[4,4].ficha = FICHANEGRA;
+end
+
 
 constructor TP1Reversi.Create(TheOwner: TComponent);
 begin
