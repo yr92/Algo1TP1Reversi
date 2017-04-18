@@ -4,27 +4,44 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="3">
+    <Units Count="6">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="69"/>
-        <CursorPos X="55" Y="94"/>
-        <FoldState Value=" T4405 T3ig04011c"/>
-        <UsageCount Value="181"/>
+        <CursorPos X="22" Y="15"/>
+        <UsageCount Value="194"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="m_inicializarmatriz.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="3"/>
         <CursorPos X="48" Y="32"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="194"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
+        <Filename Value="tableroInicial.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="37"/>
+        <CursorPos X="34" Y="49"/>
+        <UsageCount Value="33"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="m_mostrarpuntos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="m_MostrarPuntos"/>
+        <EditorIndex Value="1"/>
+        <CursorPos Y="40"/>
+        <UsageCount Value="33"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <UnitName Value="Reversi"/>
         <IsVisibleTab Value="True"/>
@@ -33,8 +50,9 @@
         <UsageCount Value="91"/>
         <Loaded Value="True"/>
       </Unit2>
+      </Unit5>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="5" HistoryIndex="4">
       <Position1>
         <Filename Value="TP1Reversi.pas"/>
         <Caret Line="62" Column="8" TopLine="40"/>
@@ -43,6 +61,18 @@
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <Caret Line="21" Column="25" TopLine="7"/>
       </Position2>
+      <Position3>
+        <Filename Value="tableroInicial.pas"/>
+        <Caret Line="36" Column="10" TopLine="32"/>
+      </Position3>
+      <Position4>
+        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
+        <Caret Line="35" Column="14" TopLine="16"/>
+      </Position4>
+      <Position5>
+        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
+        <Caret Line="58" Column="25"/>
+      </Position5>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

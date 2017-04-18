@@ -1,4 +1,4 @@
-program Reversi
+program Reversi;
 const COLUMNAS = 8;
       FILAS = 8;
       FICHA_VACIA = 0;

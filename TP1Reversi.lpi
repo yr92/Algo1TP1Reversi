@@ -30,7 +30,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="2">
+    <Units Count="5">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
@@ -40,6 +40,19 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="tableroInicial.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="m_mostrarpuntos.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="m_MostrarPuntos"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="m_main.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
