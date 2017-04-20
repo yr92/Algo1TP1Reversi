@@ -42,14 +42,22 @@
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
+        <Filename Value="m_main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit4>
+      <Unit5>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <UnitName Value="Reversi"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <CursorPos X="20" Y="22"/>
-        <UsageCount Value="91"/>
+        <EditorIndex Value="3"/>
+        <CursorPos Y="13"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
-      </Unit2>
       </Unit5>
     </Units>
     <JumpHistory Count="5" HistoryIndex="4">
