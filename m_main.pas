@@ -19,23 +19,23 @@ const COLUMNAS = 8;
       DERECHA = 1;
       NEUTRO = 0;
 type
-  trJugador: record
+  trJugador = record
     nombre: char(20);
     letra: char(1);
     humano: boolean;
     puntos: byte; //en vez contadores sueltos, mejor que quede guardado el puntaje en cada jugador
     blancas: boolean; //para diferenciar un jugador de otro
   end
-  trCasilla: record
+  trCasilla= record
     ficha: byte;
   end
-  trJugada: record
+  trJugada= record
     x: byte;
     y: byte;
     blancas: boolean; //para ver que jugador hizo la jugada
     valida: boolean
   end
-  trDireccion: record
+  trDireccion= record
     dirX: byte;
     dirY: byte;
   end
