@@ -52,6 +52,7 @@
       <Unit4>
         <Filename Value="m_main.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="Reversi"/>
       </Unit4>
     </Units>
   </ProjectOptions>

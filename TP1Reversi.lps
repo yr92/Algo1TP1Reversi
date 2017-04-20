@@ -8,9 +8,9 @@
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="69"/>
+        <TopLine Value="77"/>
         <CursorPos X="22" Y="15"/>
-        <UsageCount Value="194"/>
+        <UsageCount Value="202"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -18,18 +18,17 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="3"/>
         <CursorPos X="48" Y="32"/>
-        <UsageCount Value="194"/>
+        <UsageCount Value="202"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="tableroInicial.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="37"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="38"/>
         <CursorPos X="34" Y="49"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -38,26 +37,27 @@
         <UnitName Value="m_MostrarPuntos"/>
         <EditorIndex Value="1"/>
         <CursorPos Y="40"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="m_main.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UnitName Value="Reversi"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="5"/>
+        <CursorPos Y="17"/>
+        <UsageCount Value="28"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <UnitName Value="Reversi"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <CursorPos Y="13"/>
-        <UsageCount Value="98"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="67"/>
+        <CursorPos X="13" Y="101"/>
+        <UsageCount Value="97"/>
       </Unit5>
     </Units>
     <JumpHistory Count="5" HistoryIndex="4">
@@ -66,20 +66,20 @@
         <Caret Line="62" Column="8" TopLine="40"/>
       </Position1>
       <Position2>
-        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
-        <Caret Line="21" Column="25" TopLine="7"/>
-      </Position2>
-      <Position3>
         <Filename Value="tableroInicial.pas"/>
         <Caret Line="36" Column="10" TopLine="32"/>
+      </Position2>
+      <Position3>
+        <Filename Value="m_main.pas"/>
+        <Caret Line="4" Column="33" TopLine="26"/>
       </Position3>
       <Position4>
-        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
-        <Caret Line="35" Column="14" TopLine="16"/>
+        <Filename Value="m_main.pas"/>
+        <Caret Line="21" Column="17" TopLine="13"/>
       </Position4>
       <Position5>
-        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
-        <Caret Line="58" Column="25"/>
+        <Filename Value="m_main.pas"/>
+        <Caret Line="22"/>
       </Position5>
     </JumpHistory>
   </ProjectSession>
