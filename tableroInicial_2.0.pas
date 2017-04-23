@@ -33,6 +33,17 @@ begin
   estaEnTablero:= estaAdentro;
 end;
 
+function EstaVacio(mMatriz: tvMatriz; x,y: byte): boolean;
+var
+   vacio: boolean;
+begin
+	if ((mMatriz[x,y] = FICHA_BLANCA) or (mMatriz[x,y] = FICHA_NEGRA)) then
+	  vacio:= false
+	else
+	  vacio:= true;
+	EstaVacio:= vacio;
+end; 
+
 procedure InicializarMatriz(var mMatriz: tMatriz);
 begin
     mMatriz[4,4] := FICHA_BLANCA;
