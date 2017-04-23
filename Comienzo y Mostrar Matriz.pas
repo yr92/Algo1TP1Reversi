@@ -52,11 +52,11 @@ var
 begin
   //esto de aca abajo esta asi por ahora hasta que determ
   //literalmente copiado del whatsapp, ya entraremos en mas detalles
-  repeat
-    clrscr; //Limpiar pantalla 
+  repeat  
     InicializarVariables();
     PedirNombreYFichas();
     CrearTablero();
+    clrscr; //Limpiar pantalla 
     DibujarTablero();
     ReiniciarTablero();
     //empieza el partido
