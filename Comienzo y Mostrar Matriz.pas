@@ -1,4 +1,5 @@
 program Reversi__;
+uses crt; //Librería necesaria para limpiar pantalla
 const COLUMNAS = 8;
       FILAS = 8;
       FICHA_VACIA = 0;
@@ -52,6 +53,7 @@ begin
   //esto de aca abajo esta asi por ahora hasta que determ
   //literalmente copiado del whatsapp, ya entraremos en mas detalles
   repeat
+    clrscr; //Limpiar pantalla 
     InicializarVariables();
     PedirNombreYFichas();
     CrearTablero();
