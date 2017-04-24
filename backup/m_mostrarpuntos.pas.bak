@@ -35,7 +35,7 @@ end
 procedure MostrarPuntos(var mJugadores: tJugadores)
 begin
   writeln('Jugador ' + mJugadores[JUGADOR_BLANCAS].nombre + ': ' + mJugadores[JUGADOR_BLANCAS].puntos + ' puntos.');
-  writeln('Jugador ' + mJugadores[JUGADOR_NEGRAS].nombre + ': ' + mJugadores[JUGADOR_NEGRAS].puntos + ' puntos.');
+  writeln('Jugador ' + mJugadores[JUGADOR_BLANCAS].nombre + ': ' + mJugadores[JUGADOR_BLANCAS].puntos + ' puntos.');
 end
 
 end.

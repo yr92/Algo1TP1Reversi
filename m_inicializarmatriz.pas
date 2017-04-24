@@ -8,22 +8,22 @@ uses
   Classes, SysUtils;
 
 implementation
-procedure ReiniciarMatriz(var mMatriz:tMatriz, maxFilasCols:int)
+procedure ReiniciarTablero(var mMatriz:tMatriz)
 begin
-  LimpiarMatriz(mMatriz, maxFilasCols);
+  LimpiarMatriz(mMatriz);
   InicializarMatriz(mMatriz);
 end
 
-procedure LimpiarMatriz(var mMatriz:tMatriz)
+procedure LimpiarTablero(var mMatriz:tMatriz)
 var
   i,j byte
 begin
-  for i:= 1 to maxFilas do
-    for j:=1 to maxColumnas do
+  for i:= 1 to MAX_FILASCOLUMNAS do
+    for j:=1 to MAX_FILASCOLUMNAS do
         mMatriz[i,j].ficha = FICHAVACIA;
 end
 
-Procedure InicializarMatriz(var mMatriz:tMatriz)
+Procedure InicializarTablero(var mMatriz:tMatriz)
 var
   i,j byte
 begin

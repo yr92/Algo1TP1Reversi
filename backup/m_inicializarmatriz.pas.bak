@@ -8,20 +8,18 @@ uses
   Classes, SysUtils;
 
 implementation
-procedure ReiniciarMatriz(var mMatriz:tMatriz, maxFilas:int, maxColumnas: int)
-var
-  i,j byte
+procedure ReiniciarMatriz(var mMatriz:tMatriz)
 begin
   LimpiarMatriz(mMatriz);
   InicializarMatriz(mMatriz);
 end
 
-procedure LimpiarMatriz(var mMatriz:tMatriz, maxFilas:int, maxColumnas: int)
+procedure LimpiarMatriz(var mMatriz:tMatriz)
 var
   i,j byte
 begin
-  for i:= 1 to maxFilas do
-    for j:=1 to maxFilas do
+  for i:= 1 to MAX_FILASCOLUMNAS do
+    for j:=1 to MAX_FILASCOLUMNAS do
         mMatriz[i,j].ficha = FICHAVACIA;
 end
 

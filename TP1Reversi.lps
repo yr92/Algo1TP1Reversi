@@ -4,83 +4,130 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="10">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="77"/>
-        <CursorPos X="22" Y="15"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="27"/>
         <UsageCount Value="202"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="m_inicializarmatriz.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
-        <EditorIndex Value="2"/>
-        <CursorPos X="48" Y="32"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="28" Y="21"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="tableroInicial.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="38"/>
-        <CursorPos X="34" Y="49"/>
-        <UsageCount Value="41"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="14" Y="48"/>
+        <UsageCount Value="105"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="m_mostrarpuntos.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_MostrarPuntos"/>
-        <EditorIndex Value="1"/>
-        <CursorPos Y="40"/>
-        <UsageCount Value="41"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="46" Y="21"/>
+        <UsageCount Value="105"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="m_main.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Reversi"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="5"/>
-        <CursorPos Y="17"/>
-        <UsageCount Value="28"/>
+        <TopLine Value="34"/>
+        <CursorPos X="17" Y="40"/>
+        <UsageCount Value="92"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
-        <UnitName Value="Reversi"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="67"/>
         <CursorPos X="13" Y="101"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="91"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="m_validacionjugadas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="m_ValidacionJugadas"/>
+        <EditorIndex Value="6"/>
+        <CursorPos X="11" Y="11"/>
+        <UsageCount Value="84"/>
+        <Loaded Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="tableroInicial_2.0.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="tableroInicial"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="68"/>
+        <CursorPos X="16" Y="74"/>
+        <UsageCount Value="84"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="m_nombreyfichas.pas"/>
+        <UnitName Value="m_DatosJugadores"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="22"/>
+        <UsageCount Value="14"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="m_DatosJugadores.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="10"/>
+        <CursorPos X="66" Y="28"/>
+        <UsageCount Value="84"/>
+        <Loaded Value="True"/>
+      </Unit9>
     </Units>
-    <JumpHistory Count="5" HistoryIndex="4">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
-        <Filename Value="TP1Reversi.pas"/>
-        <Caret Line="62" Column="8" TopLine="40"/>
-      </Position1>
-      <Position2>
         <Filename Value="tableroInicial.pas"/>
         <Caret Line="36" Column="10" TopLine="32"/>
+      </Position1>
+      <Position2>
+        <Filename Value="m_main.pas"/>
+        <Caret Line="21" Column="17" TopLine="13"/>
       </Position2>
       <Position3>
         <Filename Value="m_main.pas"/>
-        <Caret Line="4" Column="33" TopLine="26"/>
+        <Caret Line="22"/>
       </Position3>
       <Position4>
-        <Filename Value="m_main.pas"/>
-        <Caret Line="21" Column="17" TopLine="13"/>
+        <Filename Value="tableroInicial_2.0.pas"/>
+        <Caret Line="6" Column="61" TopLine="97"/>
       </Position4>
       <Position5>
-        <Filename Value="m_main.pas"/>
-        <Caret Line="22"/>
+        <Filename Value="m_DatosJugadores.pas"/>
+        <Caret Line="19" Column="10"/>
       </Position5>
+      <Position6>
+        <Filename Value="m_mostrarpuntos.pas"/>
+        <Caret Line="12" Column="73"/>
+      </Position6>
+      <Position7>
+        <Filename Value="m_mostrarpuntos.pas"/>
+        <Caret Line="14" Column="45" TopLine="7"/>
+      </Position7>
+      <Position8>
+        <Filename Value="m_mostrarpuntos.pas"/>
+        <Caret Line="24" Column="22"/>
+      </Position8>
+      <Position9>
+        <Filename Value="m_mostrarpuntos.pas"/>
+        <Caret Line="28" Column="47" TopLine="8"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
