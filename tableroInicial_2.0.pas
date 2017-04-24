@@ -26,7 +26,7 @@ function estaEnTablero(jugadaX, jugadaY: byte): boolean;
 var
   estaAdentro: boolean;
 begin
-  if ((jugadaX <= 8) and (jugadaX >= 0) and (jugadaY <= 8) and (jugadaY >= 0)) then
+  if ((jugadaX <= 8) and (jugadaX >= 1) and (jugadaY <= 8) and (jugadaY >= 1)) then
    estaAdentro:= true
    else
     estaAdentro:= false;
