@@ -9,10 +9,10 @@ uses
 
 implementation
 
-procedure CalcularYMostrarPuntos(var mMatriz: tMatriz, var mJugadores: tJugadores)
+procedure CalcularYMostrarPuntos(var mMatriz: tMatriz, var mJugadores: tJugadores, esResultadoFinal: boolean)
 begin
      CalcularPuntos(mMatriz, mJugadores);
-     MostrarPuntos(mJugadores);
+     MostrarPuntos(mJugadores, esResultadoFinal);
 end
 
 procedure CalcularPuntos(var mMatriz: tMatriz, var mJugadores: tJugadores)
@@ -28,15 +28,30 @@ begin
              inc(mJugadores[JUGADOR_BLANCAS].puntos);
            else
              inc(mJugadores[JUGADOR_NEGRAS].puntos);
-           end
-        end
-end
+end;
 
-procedure MostrarPuntos(var mJugadores: tJugadores)
+procedure MostrarPuntos(var mJugadores: tJugadores, esResultadoFinal: boolean)
 begin
+  if esResultadoFinal = true then writeln('RESULTADO FINAL DEL PARTIDO:');
   writeln('Jugador ' + mJugadores[JUGADOR_BLANCAS].nombre + ': ' + mJugadores[JUGADOR_BLANCAS].puntos + ' puntos.');
   writeln('Jugador ' + mJugadores[JUGADOR_NEGRAS].nombre + ': ' + mJugadores[JUGADOR_NEGRAS].puntos + ' puntos.');
-end
+end;
+
+procedure MostrarGanadores(var mJugadores: tJugadores)
+var
+    ganador: byte;
+begin
+  if mJugadores[JUGADOR_BLANCAS].puntos <>  mJugadores[JUGADOR_NEGRAS].puntos then
+  begin
+       if mJugadores[JUGADOR_BLANCAS].puntos >  mJugadores[JUGADOR_NEGRAS].puntos then
+          ganador := JUGADOR_BLANCAS;
+       else
+          ganador := JUGADOR_NEGRAS;
+       writeln ('Felicidades ' + mJugadores[gandaor].nombre + ', ganaste!')
+  end
+  else
+      writeln('Empataron? Qué embole!');
+end;
 
 end.
 

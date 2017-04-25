@@ -30,7 +30,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="8">
+    <Units Count="12">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
@@ -68,6 +68,24 @@
         <Filename Value="m_DatosJugadores.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Reversi__"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="InvertirFichas.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="Jugadas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="REVERSI"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="reversi.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -78,6 +78,21 @@ begin
   mMatriz[x,y]:= 1;
   //Aca deberia ser con el jugador que le corresponda y bla bla
 end;
+//
+
+procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugador: trJugador; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
+var
+    x,y:string;
+    valido: boolean;
+begin
+    IngresarJugada(mJugada, mJugador);
+    ValidarJugada(jugada, mMatriz, vDirecciones);
+end;
+
+procedure MostrarErrorJugada(var mJugada: trJugada);
+begin
+    println('La jugada no es válida. ' + jugada.mensajeError);
+end;
 
 procedure IngresarJugada(var mJugada: trJugada; var mJugador: trJugador);
 var

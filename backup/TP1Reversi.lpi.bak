@@ -30,7 +30,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="5">
+    <Units Count="8">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
@@ -54,6 +54,20 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Reversi"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="m_validacionjugadas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="m_ValidacionJugadas"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="tableroInicial_2.0.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="tableroInicial"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="m_DatosJugadores.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -69,12 +69,14 @@ begin
   repeat
     write('El jugador ' + nombreJugador + ', ¿es humano? S/N: ');
     readln(dato);
-    if dato <> 'S' or dato <> 'N' then
+    if ValidarSN(dato) = true then
+    begin
         if dato = 'S' then
             humano := true;
         else
             humano := false;
         valido := true;
+    end
   until valido;
   EsHumano := humano;
 end

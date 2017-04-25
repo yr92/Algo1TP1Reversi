@@ -78,15 +78,33 @@ begin
   mMatriz[x,y]:= 1;
   //Aca deberia ser con el jugador que le corresponda y bla bla
 end;
+//
 
-procedure IngresarJugada(var mJugada: trJugada; var mJugador: trJugador, var mCurrentPlayer: byte);
+procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugador: trJugador; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
+var
+    x,y:string;
+    valido: boolean;
+begin
+    IngresarJugada(mJugada, mJugador);
+    ValidarJugada(jugada, mMatriz, vDirecciones);
+    if jugada.valida = true then
+      //todo bien
+    else
+      MostrarErrorJugada(jugada);
+end;
+
+procedure MostrarErrorJugada(var mJugada: trJugada);
+begin
+    println('La jugada no es válida. ' + jugada.mensajeError);
+end;
+
+procedure IngresarJugada(var mJugada: trJugada; var mJugador: trJugador);
 var
     x,y:string;
     valido: boolean;
 begin
     IngresarCoordenada(mJugada, mJugador, 'fila');
     IngresarCoordenada(mJugada, mJugador, 'columna');
-    mJugada.jugador := mCurrentPlayer;
 end;
 
 procedure IngresarCoordenada(var mJugada: trJugada; var mJugador: trJugador; filaOcolumna: string);

@@ -46,7 +46,8 @@ type
     x: byte;
     y: byte;
     jugador: byte; //para ver que jugador hizo la jugada
-    valida: boolean
+    valida: boolean;
+    mensajeError: string;
   end
   trDireccion= record
     dirX: byte;
@@ -63,41 +64,51 @@ var
   jugada: trJugada;
   currentPlayer: byte;//para ver de quien es el turno
   gameOver: boolean;//duh
+  otraPartida: boolean;
 begin
   //esto de aca abajo esta asi por ahora hasta que determ
   //literalmente copiado del whatsapp, ya entraremos en mas detalles
     InicializarVariables(vDirecciones, jugada);
-  repeat
+  repeat  //repeat 1, solamente de cuando se arranca un partido nuevo
     PedirDatosJugadores(vJugadores);
-    clrscr;
     ReiniciarTablero(mMatriz);
-    DibujarTablero(mMatriz, vJugadores);
+    RefrescarPantalla(mMatriz, vJugadores);
+
     //empieza el partido
-    MostrarTurno(vJugadores[jugada.jugador]);
-    if HayJugadaValida(mMatriz, jugada) then
-    begin
-      repeat
-       IngresarJugada(jugada, vJugadores[jugada.jugador]);
-       if JugadaValida(jugada, mMatriz, vDirecciones) then
-          HacerJugada(jugada, mMatriz, vDirecciones);
+    repeat //repeat 2, de toda la partida
+      MostrarTurno(vJugadores[jugada.jugador]);
+      if HayJugadaValida(mMatriz, jugada) then
+        begin
+          //el hayjugadavalida y el resto del algoritmo hay que cambiarlo dps para cuando hagamos al gloton,
+          //primero listamos todas las posiciones en un vector, y dps mas facil para validar es ver si la pos ingresada esta ahi.
 
-       else
-
-      until jugada.valida;
-    end
-    else
-    begin
-      if TerminoElPartido(mMatriz, jugada) then //para ver si termino o si tiene que pasar nomas
-         gameOver := true;
+          repeat
+           IngresarYValidarJugada(jugada, vJugadores[jugada.jugador], mMatriz, vDirecciones);
+           if jugada.valida = true then
+              HacerJugada(jugada, mMatriz, vDirecciones);
+           else
+              RefrescarPantalla(mMatriz, vJugadores);
+              MostrarErrorJugada(jugada);
+          until jugada.valida;
+        end
       else
-          println('Jugador ' + mJugador.Nombre + ', no tiene movimientos posibles, deberá pasar su turno.');
-    end
+        begin
+          if TerminoElPartido(mMatriz, jugada) then //para ver si termino o si tiene que pasar nomas
+             gameOver := true;
+          else
+              println('Jugador ' + mJugador.Nombre + ', no tiene movimientos posibles, deberá pasar su turno.');
+      end;
 
-    DibujarTablero(mMatriz, vJugadores)
-    CalcularYMostrarPuntos(mMatriz, vJugadores);
-    PasarTurno(jugada);
-    JuegoTerminado();
-  until gameOver;
+      DibujarTablero(mMatriz, vJugadores)
+      CalcularYMostrarPuntos(mMatriz, vJugadores);
+      PasarTurno(jugada);
+      JuegoTerminado();
+    until gameOver; //fin repeat de todo el partido
+
+    MostrarResultadoFinal(vJugadores, mMatriz);
+    MostrarGanador(vJugadores);
+    //otra partida? s/n - se la banca suelta como funcion o hay que declarar var y demas?
+  until otraPartida() = false;  //fin repeat 1,
 end;
 
 procedure inicializarVariables(var mDirecciones: tDirecciones; var mCurrentPlayer: byte);
@@ -132,4 +143,37 @@ end
 procedure mostrarTurno (var mJugador: trJugador);
 begin
      println('Jugador ' + mJugador.Nombre + ', es su turno.');
+end;
+
+function otraPartida(): boolean;
+var
+  dato: string;
+  valido: boolean;
+  resultado: boolean;
+begin
+     valido := false;
+     repeat
+           print('Juego terminado - ¿Otra partida? S/N: ');
+           read(dato);
+           if ValidarSN(dato) = true then
+              valido: true;
+           end if
+     until valido = true;
+     if dato = 'S' then
+        resultado = true;
+     else
+         resultado = false;
+end;
+
+function ValidarSN(mDato: string): boolean;
+  valido: boolean;
+  resultado: boolean;
+begin
+     resultado := ((mDato = 'S') or (mDato = 'N'))
+end;
+
+procedure RefrescarPantalla(var mMatriz: tMatriz; var mJugadores: tJugadores);
+begin
+    clrscr;
+    DibujarTablero(mMatriz, vJugadores);
 end;
