@@ -17,8 +17,7 @@
         <Filename Value="m_inicializarmatriz.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="3"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="34" Y="3"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
@@ -29,15 +28,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="41"/>
         <CursorPos X="14" Y="48"/>
-        <UsageCount Value="112"/>
+        <UsageCount Value="133"/>
       </Unit2>
       <Unit3>
         <Filename Value="m_mostrarpuntos.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_MostrarPuntos"/>
-        <EditorIndex Value="5"/>
-        <CursorPos X="51" Y="12"/>
-        <UsageCount Value="112"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="25" Y="23"/>
+        <UsageCount Value="133"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -45,9 +44,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Reversi"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="50"/>
-        <CursorPos X="80" Y="95"/>
-        <UsageCount Value="99"/>
+        <TopLine Value="147"/>
+        <CursorPos X="49" Y="79"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -56,68 +55,70 @@
         <UnitName Value="m_ValidacionJugadas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="11" Y="11"/>
-        <UsageCount Value="91"/>
+        <UsageCount Value="112"/>
       </Unit5>
       <Unit6>
         <Filename Value="tableroInicial_2.0.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="tableroInicial"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="128"/>
-        <CursorPos X="31" Y="139"/>
-        <UsageCount Value="91"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="142"/>
+        <CursorPos X="33" Y="159"/>
+        <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="m_DatosJugadores.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
-        <CursorPos X="49" Y="12"/>
-        <UsageCount Value="91"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="51"/>
+        <CursorPos X="53" Y="35"/>
+        <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Reversi__"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="69"/>
-        <CursorPos X="5" Y="60"/>
-        <UsageCount Value="98"/>
+        <CursorPos X="5" Y="69"/>
+        <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
-        <Filename Value="m_nombreyfichas.pas"/>
-        <UnitName Value="m_DatosJugadores"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="22"/>
-        <UsageCount Value="13"/>
-      </Unit9>
-      <Unit10>
         <Filename Value="InvertirFichas.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="27"/>
-      </Unit10>
-      <Unit11>
+        <UsageCount Value="48"/>
+      </Unit9>
+      <Unit10>
         <Filename Value="Jugadas.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="REVERSI"/>
-        <EditorIndex Value="3"/>
-        <UsageCount Value="27"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="52"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
-      </Unit11>
-      <Unit12>
+      </Unit10>
+      <Unit11>
         <Filename Value="reversi.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="48"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="m_nombreyfichas.pas"/>
+        <UnitName Value="m_DatosJugadores"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="22"/>
+        <UsageCount Value="11"/>
       </Unit12>
     </Units>
     <JumpHistory Count="29" HistoryIndex="28">

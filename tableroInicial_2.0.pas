@@ -21,7 +21,8 @@ var
 begin
   for i:= 1 to FILAS do
     for j:=1 to COLUMNAS do
-        mMatriz[i,j] := FICHA_VACIA;
+        mMatriz[i,j].ficha := FICHA_VACIA;
+        mMatriz[i,j].jugadaValida := false;
 end;
 
 function estaEnTablero(jugadaX, jugadaY: byte): boolean;
@@ -49,10 +50,10 @@ end;
 
 procedure InicializarMatriz(var mMatriz: tMatriz);
 begin
-    mMatriz[4,4] := FICHA_BLANCA;
-    mMatriz[5,5] := FICHA_BLANCA;
-    mMatriz[4,5] := FICHA_NEGRA;
-    mMatriz[5,4] := FICHA_NEGRA;
+    mMatriz[4,4].ficha := FICHA_BLANCA;
+    mMatriz[5,5].ficha := FICHA_BLANCA;
+    mMatriz[4,5].ficha := FICHA_NEGRA;
+    mMatriz[5,4].ficha := FICHA_NEGRA;
 end;
 
 procedure ReiniciarMatriz(var mMatriz: tMatriz);
@@ -80,12 +81,12 @@ begin
 end;
 //
 
-procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugador: trJugador; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
+procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugadores: tJugadores; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
 var
     x,y:string;
     valido: boolean;
 begin
-    IngresarJugada(mJugada, mJugador);
+    IngresarJugada(mJugada, mJugadores);
     ValidarJugada(jugada, mMatriz, vDirecciones);
 end;
 
@@ -94,29 +95,29 @@ begin
     println('La jugada no es válida. ' + jugada.mensajeError);
 end;
 
-procedure IngresarJugada(var mJugada: trJugada; var mJugador: trJugador);
+procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
 var
     x,y:string;
     valido: boolean;
 begin
-    IngresarCoordenada(mJugada, mJugador, 'fila');
-    IngresarCoordenada(mJugada, mJugador, 'columna');
+    IngresarCoordenada(mJugada, mJugadores, STR_FILA);
+    IngresarCoordenada(mJugada, mJugadores, STR_COLUMNA);
 end;
 
-procedure IngresarCoordenada(var mJugada: trJugada; var mJugador: trJugador; filaOcolumna: string);
+procedure IngresarCoordenada(var mJugada: trJugada; var mJugadores: tJugadores; filaOcolumna: string);
 var
     dato: string;
     valido: boolean;
 begin
     repeat
-      write('Jugador ' + mJugador.nombre + ', ingrese la ' + filaOcolumna + ' de su jugada: ');
+      write('Jugador ' + mJugadores[trJugada].nombre + ', ingrese la ' + filaOcolumna + ' de su jugada: ');
       readln(dato);
       if validarTexto(dato) = false then
          writeln('Dato inválido. El valor ingresado debe ser un único número entre 1 y 8.');
       else
          valido := true;
      until valido;
-     if filaOcolumna = 'fila' then
+     if filaOcolumna = STR_FILA then
           mJugada.X := strtoint(dato);
      else
           mJugada.Y := strtoint(dato);

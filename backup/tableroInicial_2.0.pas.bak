@@ -21,7 +21,8 @@ var
 begin
   for i:= 1 to FILAS do
     for j:=1 to COLUMNAS do
-        mMatriz[i,j] := FICHA_VACIA;
+        mMatriz[i,j].ficha := FICHA_VACIA;
+        mMatriz[i,j].jugadaValida := false;
 end;
 
 function estaEnTablero(jugadaX, jugadaY: byte): boolean;
@@ -49,10 +50,10 @@ end;
 
 procedure InicializarMatriz(var mMatriz: tMatriz);
 begin
-    mMatriz[4,4] := FICHA_BLANCA;
-    mMatriz[5,5] := FICHA_BLANCA;
-    mMatriz[4,5] := FICHA_NEGRA;
-    mMatriz[5,4] := FICHA_NEGRA;
+    mMatriz[4,4].ficha := FICHA_BLANCA;
+    mMatriz[5,5].ficha := FICHA_BLANCA;
+    mMatriz[4,5].ficha := FICHA_NEGRA;
+    mMatriz[5,4].ficha := FICHA_NEGRA;
 end;
 
 procedure ReiniciarMatriz(var mMatriz: tMatriz);
@@ -87,10 +88,6 @@ var
 begin
     IngresarJugada(mJugada, mJugador);
     ValidarJugada(jugada, mMatriz, vDirecciones);
-    if jugada.valida = true then
-      //todo bien
-    else
-      MostrarErrorJugada(jugada);
 end;
 
 procedure MostrarErrorJugada(var mJugada: trJugada);

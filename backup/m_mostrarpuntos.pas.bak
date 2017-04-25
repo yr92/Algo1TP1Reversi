@@ -37,5 +37,21 @@ begin
   writeln('Jugador ' + mJugadores[JUGADOR_NEGRAS].nombre + ': ' + mJugadores[JUGADOR_NEGRAS].puntos + ' puntos.');
 end;
 
+procedure MostrarGanadores(var mJugadores: tJugadores)
+var
+    ganador: byte;
+begin
+  if mJugadores[JUGADOR_BLANCAS].puntos <>  mJugadores[JUGADOR_NEGRAS].puntos then
+  begin
+       if mJugadores[JUGADOR_BLANCAS].puntos >  mJugadores[JUGADOR_NEGRAS].puntos then
+          ganador := JUGADOR_BLANCAS;
+       else
+          ganador := JUGADOR_NEGRAS;
+       writeln ('Felicidades ' + mJugadores[gandaor].nombre + ', ganaste!')
+  end
+  else
+      writeln('Empataron? Qué embole!');
+end;
+
 end.
 

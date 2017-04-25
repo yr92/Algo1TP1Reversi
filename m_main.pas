@@ -29,18 +29,19 @@ const COLUMNAS = 8;
       NEUTRO = 0;
 
       MAX_JUGADORES = 2;
-      JUGADOR_BLANCAS = 1;
-      JUGADOR_NEGRAS = 2;
+
+      STR_FILA = 'fila';
+      STR_COLUMNA = 'columna';
 type
   trJugador = record
     nombre: string;
     ficha: char;
     humano: boolean;
     puntos: byte; //en vez contadores sueltos, mejor que quede guardado el puntaje en cada jugador
-    jugador: byte; //para diferenciar un jugador de otro con las constantes de arriba
   end
   trCasilla= record
     ficha: byte;
+    movimientoValido: boolean;
   end
   trJugada= record
     x: byte;
@@ -54,9 +55,9 @@ type
     dirY: byte;
   end
 
-  tJugadores: array[1..MAX_JUGADORES] of trJugador
-  tDirecciones: array[1..MAX_DIRECCIONES] of trDireccion
-  tMatriz: array [1..FILAS,1..COLUMNAS] of trCasilla
+  tJugadores: array[1..MAX_JUGADORES] of trJugador;
+  tDirecciones: array[1..MAX_DIRECCIONES] of trDireccion;
+  tMatriz: array [1..FILAS,1..COLUMNAS] of trCasilla;
 var
   vMatriz: tMatriz;
   vJugadores: tJugadores;
@@ -68,7 +69,7 @@ var
 begin
   //esto de aca abajo esta asi por ahora hasta que determ
   //literalmente copiado del whatsapp, ya entraremos en mas detalles
-    InicializarVariables(vDirecciones, jugada);
+    InicializarVariables(vDirecciones,  jugada);
   repeat  //repeat 1, solamente de cuando se arranca un partido nuevo
     PedirDatosJugadores(vJugadores);
     ReiniciarTablero(mMatriz);
@@ -76,14 +77,15 @@ begin
 
     //empieza el partido
     repeat //repeat 2, de toda la partida
-      MostrarTurno(vJugadores[jugada.jugador]);
+      MostrarTurno(vJugadores, jugada);
+      //ListarJugadasValidas(mMatriz, jugada, vJugadores)
       if HayJugadaValida(mMatriz, jugada) then
         begin
           //el hayjugadavalida y el resto del algoritmo hay que cambiarlo dps para cuando hagamos al gloton,
           //primero listamos todas las posiciones en un vector, y dps mas facil para validar es ver si la pos ingresada esta ahi.
 
           repeat
-           IngresarYValidarJugada(jugada, vJugadores[jugada.jugador], mMatriz, vDirecciones);
+           IngresarYValidarJugada(jugada, vJugadores, mMatriz, vDirecciones);
            if jugada.valida = true then
               HacerJugada(jugada, mMatriz, vDirecciones);
            else
@@ -111,11 +113,11 @@ begin
   until otraPartida() = false;  //fin repeat 1,
 end;
 
-procedure inicializarVariables(var mDirecciones: tDirecciones; var mCurrentPlayer: byte);
+procedure inicializarVariables(var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas; var mJugada: trJugada);
 //agregar a medida que haga falta inicializar mas cosas
 begin
-    inicializarDirecciones(tDirecciones);
-    jugada.jugador := JUGADOR_BLANCAS;
+    inicializarDirecciones(mDirecciones);
+    mJugada.jugador := FICHA_BLANCA;
 end;
 
 procedure inicializarDirecciones(var mDirecciones: tDirecciones);
@@ -140,9 +142,9 @@ begin
     mDirecciones[DIR_DERECHA_ABAJO].dirY:=ABAJO;
 end
 
-procedure mostrarTurno (var mJugador: trJugador);
+procedure mostrarTurno (var mJugadores: tJugadores, var mJugada: trJugada);
 begin
-     println('Jugador ' + mJugador.Nombre + ', es su turno.');
+     println('Jugador ' + mJugadores[mJugada.jugador].Nombre + ', es su turno.');
 end;
 
 function otraPartida(): boolean;
