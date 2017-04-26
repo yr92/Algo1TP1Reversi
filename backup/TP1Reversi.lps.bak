@@ -18,7 +18,6 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_InicializarMatriz"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="3"/>
         <CursorPos X="34" Y="3"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
@@ -29,16 +28,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="41"/>
         <CursorPos X="14" Y="48"/>
-        <UsageCount Value="125"/>
+        <UsageCount Value="133"/>
       </Unit2>
       <Unit3>
         <Filename Value="m_mostrarpuntos.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="m_MostrarPuntos"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="22"/>
-        <CursorPos X="38" Y="53"/>
-        <UsageCount Value="125"/>
+        <CursorPos X="25" Y="23"/>
+        <UsageCount Value="133"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -46,9 +44,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Reversi"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="73"/>
-        <CursorPos X="114" Y="99"/>
-        <UsageCount Value="112"/>
+        <TopLine Value="147"/>
+        <CursorPos X="49" Y="79"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -57,16 +55,16 @@
         <UnitName Value="m_ValidacionJugadas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="11" Y="11"/>
-        <UsageCount Value="104"/>
+        <UsageCount Value="112"/>
       </Unit5>
       <Unit6>
         <Filename Value="tableroInicial_2.0.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="tableroInicial"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="164"/>
-        <CursorPos X="76" Y="169"/>
-        <UsageCount Value="104"/>
+        <TopLine Value="142"/>
+        <CursorPos X="33" Y="159"/>
+        <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -74,7 +72,8 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="51"/>
-        <UsageCount Value="104"/>
+        <CursorPos X="53" Y="35"/>
+        <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -84,7 +83,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="69"/>
         <CursorPos X="5" Y="69"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="119"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -94,7 +93,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="48"/>
       </Unit9>
       <Unit10>
         <Filename Value="Jugadas.pas"/>
@@ -102,7 +101,7 @@
         <UnitName Value="REVERSI"/>
         <EditorIndex Value="5"/>
         <TopLine Value="52"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -112,14 +111,14 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="48"/>
       </Unit11>
       <Unit12>
         <Filename Value="m_nombreyfichas.pas"/>
         <UnitName Value="m_DatosJugadores"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="22"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="11"/>
       </Unit12>
     </Units>
     <JumpHistory Count="29" HistoryIndex="28">
