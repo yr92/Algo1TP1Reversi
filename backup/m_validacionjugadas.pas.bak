@@ -9,6 +9,53 @@ uses
 
 implementation
 
+procedure HacerJugada(var mJugada: trJugada; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
+var
+  i: byte;
+  j: byte;
+  k: byte;
+  fichaJugador: byte;
+  fichaRival: byte;
+  jugadaAux: trJugada;
+  sigoRecorriendo: boolean;
+  direccionValida: boolean;
+  contadorPuntosASumar: byte;
+begin
+     i:= 0;
+    while i < MAX_DIRECCIONES and sigoRecorriendo = true do
+    begin
+      inc(i);
+      if mJugada.direccionesValidas[i]> 0 then
+         voltearFichas(mJugada, mMatriz, vDirecciones, i);
+      else
+          sigoRecorriendo:= false;
+    end;
+end;
+
+procedure voltearFichas(var mJugada: trJugada; var mMatriz: tMatriz; var mDirecciones: tDirecciones; mDireccion:byte);
+var
+  jugadaAux: trJugada;
+  sigoRecorriendo: boolean;
+begin
+    jugadaAux.x:= jugadaAux.x + mDirecciones[mJugada.direccionesValidas[mDireccion]].dirX;
+    jugadaAux.y:= jugadaAux.y + mDirecciones[mJugada.direccionesValidas[mDireccion]].dirY;
+    sigoRecorriendo:= true;
+    while sigoRecorriendo = true do
+    begin
+        if CasilleroHayFicha(jugadaAux, mJugada.ficha, mMatriz) = true then
+        begin
+           sigoRecorriendo:= false;
+        end;
+        else //hay otra ficha rival
+        begin
+           mMatriz[jugadaAux.x, jugadaAux.y].ficha = fichaJugador;
+           jugadaAux.x:= jugadaAux.x + mDirecciones[mJugada.direccionesValidas[mDireccion]].dirX;
+           jugadaAux.y:= jugadaAux.y + mDirecciones[mJugada.direccionesValidas[mDireccion]].dirY;
+        end;
+    end;
+end;
+
+
 procedure ListarJugadasValidas(var mMatriz: tMatriz; var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores; var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
 var
   i: byte;
@@ -72,7 +119,8 @@ begin
                       begin
                          sigoRecorriendo:= false;
                          esValida:= true;
-                         jugadaAValidar.puntosASumar:= jugadaAValidar.puntosASumar + contadorPuntosASumar;
+                         mjugadaAValidar.puntosASumar:= mjugadaAValidar.puntosASumar + contadorPuntosASumar;
+                         JugadaAgregarDireccionValida(mJugadaAValidar, i);
                       end;
                       else //hay otra ficha rival
                       begin
@@ -109,9 +157,9 @@ begin
   resultado:= false;
   i:= 1;
   j:= 1;
-  while i< MAX_FILASCOLUMNAS or resultado = false do
+  while i< MAX_FILASCOLUMNAS and resultado = false do
   begin
-    while j< MAX_FILASCOLUMNAS or resultado = false do
+    while j< MAX_FILASCOLUMNAS and resultado = false do
     begin
         if mMatriz[i,j].ficha <> FICHA_VACIA then
            resultado:= true;
@@ -131,9 +179,9 @@ begin
   resultado:= false;
   i:= 1;
   j:= 1;
-  while i< MAX_FILASCOLUMNAS or resultado:= true do
+  while i< MAX_FILASCOLUMNAS and resultado:= true do
   begin
-    while j< MAX_FILASCOLUMNAS or resultado:= true do
+    while j< MAX_FILASCOLUMNAS and resultado:= true do
     begin
         if mMatriz[i,j].ficha <> FICHA_VACIA then
            if mMatriz[i,j].ficha = FICHA_BLANCA then
@@ -145,6 +193,24 @@ begin
     end;
   end;
   HayFichasAmbosColores:= resultado;
+end;
+
+procedure JugadaAgregarDireccionValida(var mJugada: trJugada; direccion: byte);
+var
+  i: byte;
+  guardado: boolean;
+begin
+  i:= 0;
+  guardado:= false;
+  while i < MAX_DIRECCIONES and guardado = false do;
+    begin
+      inc(i);
+      if mJugada.direccionesValidas[i] = 0 then
+      begin
+         mJugada.direccionesValidas[i] = direccion;
+         guardado:= true;
+      end;
+    end;
 end;
 
 procedure AgregarJugadaValida(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas);
@@ -165,6 +231,7 @@ begin
            y:= mJugada.y;
            puntosASumar:= mJugada.puntosASumar;
            guardado:= true;
+           direccionesValidas:= mJugada.direccionesValidas;
         end;
       end;
     end;

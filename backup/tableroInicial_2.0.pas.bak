@@ -41,11 +41,11 @@ function EstaVacio(mMatriz: tvMatriz; x,y: byte): boolean;
 var
    vacio: boolean;
 begin
-	if ((mMatriz[x,y] = FICHA_BLANCA) or (mMatriz[x,y] = FICHA_NEGRA)) then
-	  vacio:= false
-	else
-	  vacio:= true;
-	EstaVacio:= vacio;
+    if ((mMatriz[x,y] = FICHA_BLANCA) or (mMatriz[x,y] = FICHA_NEGRA)) then
+      vacio:= false
+    else
+      vacio:= true;
+    EstaVacio:= vacio;
 end; 
 
 procedure InicializarMatriz(var mMatriz: tMatriz);
@@ -81,13 +81,30 @@ begin
 end;
 //
 
-procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugadores: tJugadores; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
-var
-    x,y:string;
-    valido: boolean;
+procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugadores: tJugadores; var mJugadasValidas: tJugadasValidas);
 begin
     IngresarJugada(mJugada, mJugadores);
-    ValidarJugada(jugada, mMatriz, vDirecciones);
+    if JugadaEstaEnCursorValidas(mJugada, mJugadasValidas) = true then
+       mJugada.valida:= true;
+    else
+       mJugada.valida:= false;
+end;
+
+
+function JugadaEstaEnCursorValidas(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas): boolean;
+var
+  i: byte;
+  resultado: boolean;
+begin
+  i:= 1;
+  resultado:= false;
+  while (i < MAX_JUGADASVALIDAS and mJugadasValidas[i].x> 0) or resultado = true do
+  begin
+      if (mJugadasValidas[i].x = mJugada.x) and (mJugadasValidas[i].y = mJugada.y) then
+        resultado:= true;
+      inc(i);
+  end;
+  JugadaEstaEnCursorValidas:= resultado;
 end;
 
 procedure MostrarErrorJugada(var mJugada: trJugada);
@@ -96,9 +113,6 @@ begin
 end;
 
 procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
-var
-    x,y:string;
-    valido: boolean;
 begin
     IngresarCoordenada(mJugada, mJugadores, STR_FILA);
     IngresarCoordenada(mJugada, mJugadores, STR_COLUMNA);

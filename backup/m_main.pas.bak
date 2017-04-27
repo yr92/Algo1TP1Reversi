@@ -44,6 +44,7 @@ type
   trCasilla= record
     ficha: byte;
   end;
+  tDireccionesValidas = array[1..MAX_DIRECCIONES] of byte;
   trJugada= record
     x: byte;
     y: byte;
@@ -51,6 +52,7 @@ type
     valida: boolean;
     mensajeError: string;
     puntosASumar: byte;
+    direccionesValidas: tDireccionesValidas;
   end;
   trDireccion= record
     dirX: byte;
@@ -86,17 +88,16 @@ begin
               JugarHumano(jugada, vJugadores, mMatriz, vDirecciones);
             else
               JugarGloton(jugada, vJugadores, mMatriz, vDirecciones, vJugadasValidas);
-            end;
-          end
+          end;
         else
           begin
             if TerminoElPartido(mMatriz, jugada) then //para ver si termino o si tiene que pasar nomas
                gameOver := true;
             else
-                println('Jugador ' + mJugador.Nombre + ', no tiene movimientos posibles, deberá pasar su turno.');
-        end;
+               println('Jugador ' + mJugador.Nombre + ', no tiene movimientos posibles, deberá pasar su turno.');
+          end;
         RefrescarPantalla(mMatriz, vJugadores);
-        DibujarTablero(mMatriz, vJugadores)
+        DibujarTablero(mMatriz, vJugadores);
         CalcularYMostrarPuntos(mMatriz, vJugadores);
         PasarTurno(jugada);
         JuegoTerminado();
@@ -105,8 +106,8 @@ begin
       MostrarResultadoFinal(vJugadores, mMatriz);
       MostrarGanador(vJugadores);
       //otra partida? s/n - se la banca suelta como funcion o hay que declarar var y demas?
-    until otraPartida() = false;  //fin repeat 1,
-end.
+    until (otraPartida() = false);  //fin repeat 1,
+end
 
 procedure JugarHumano(var mJugada: trJugada; var mJugadores: tJugadores; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
 begin
@@ -117,7 +118,7 @@ begin
    else
       RefrescarPantalla(mMatriz, vJugadores);
       MostrarErrorJugada(mJugada);
-  until jugada.valida;
+  until mJugada.valida;
 end;
 
 procedure JugarGloton(var mJugada: trJugada; var mMatriz: tMatriz; var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
@@ -145,6 +146,7 @@ begin
                jGloton.y:= mJugadasValidas[i].y;
                jGloton.puntosASumar:= mJugadasValidas[i].puntosASumar;
           end;
+          inc(i);
      end;
      mJugadaGloton := jGloton;
 end;
@@ -221,6 +223,7 @@ end;
 procedure InicializarJugadasValidas(var mJugadasValidas: tJugadasValidas);
 var
   i: byte;
+  j: byte;
 begin
     for i:= 1 to MAX_JUGADASVALIDAS do
         with mJugadasValidas[i] do
@@ -230,6 +233,8 @@ begin
           jugador:= FICHA_VACIA; //para ver que jugador hizo la jugada
           valida:= false;
           puntosASumar:= 0;
+          for j:= 1 to MAX_DIRECCIONES do
+              direccionesValidas[j]:= 0;
         end;
 end;
 
@@ -260,3 +265,5 @@ begin
       resultado:= false;
   JugadorEsHumano:= resultado;
 end;
+
+
