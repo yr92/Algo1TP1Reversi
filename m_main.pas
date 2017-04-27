@@ -50,6 +50,7 @@ type
     jugador: byte; //para ver que jugador hizo la jugada
     valida: boolean;
     mensajeError: string;
+    puntosASumar: byte;
   end;
   trDireccion= record
     dirX: byte;
@@ -78,7 +79,7 @@ begin
       //empieza el partido
       repeat //repeat 2, de toda la partida
         MostrarTurno(vJugadores, jugada);
-        //ListarJugadasValidas(mMatriz, jugada, vJugadores)
+        ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas)
         if HayJugadaValida(mMatriz, jugada) then
           begin
             //el hayjugadavalida y el resto del algoritmo hay que cambiarlo dps para cuando hagamos al gloton,
@@ -193,6 +194,7 @@ begin
           y:= 0;
           jugador:= FICHA_VACIA; //para ver que jugador hizo la jugada
           valida:= false;
+          puntosASumar:= 0;
         end;
 end;
 
