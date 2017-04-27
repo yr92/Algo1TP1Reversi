@@ -72,7 +72,7 @@ begin
                       begin
                          sigoRecorriendo:= false;
                          esValida:= true;
-                         jugadaAValidar.puntosASumar:= jugadaAValidar.puntosASumar + contadorPuntosASumar;
+                         mjugadaAValidar.puntosASumar:= mjugadaAValidar.puntosASumar + contadorPuntosASumar;
                       end;
                       else //hay otra ficha rival
                       begin

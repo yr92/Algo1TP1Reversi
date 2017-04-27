@@ -68,7 +68,7 @@ begin
                   while jugadaEstaEnTablero(jugadaAux) = true and EstaVacioCasillero(jugadaAux) = false and sigoRecorriendo = true do
                   begin
                       inc(contadorPuntosASumar);
-                      if CasilleroHayFicha(jugadaAux, fichaPropia, mMatriz) = true then
+                      if CasilleroHayFicha(jugadaAux, fichaJugador, mMatriz) = true then
                       begin
                          sigoRecorriendo:= false;
                          esValida:= true;

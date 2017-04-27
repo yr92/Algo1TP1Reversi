@@ -1,18 +1,19 @@
-function Glotonpc (var vjugadasvalidas: tJugadasValidas): trJugada;
-var jgloton: trJugada;
+procedure ObtenerJugadaGloton (var mJugadasValidas: tJugadasValidas, var mJugadaGloton: trJugada);
+var jGloton: trJugada;
     i:byte;
 begin
-     jgloton.x:=0;
-     jgloton.y:=0;
-     jgloton.puntosASumar:=0;
-     for i:=1 to FILAS do
+     i:= 1;
+     jGloton.x:=0;
+     jGloton.y:=0;
+     jGloton.puntosASumar:=0;
+     while i < MAX_JUGADASVALIDAS and mJugadasValidas[i].x> 0 do
      begin
-          if (vjugadasvalidas[i].puntosASumar > jgloton.puntosASumar) then
+          if (mJugadasValidas[i].puntosASumar > jgloton.puntosASumar) then
           begin
-               jgloton.x:= vjugadasvalidas[i].x;
-               jgloton.y:= vjugadasvalidas[i].y;
-               jgloton.puntosASumar:= vjugadasvalidas[i].puntosASumar;
+               jGloton.x:= mJugadasValidas[i].x;
+               jGloton.y:= mJugadasValidas[i].y;
+               jGloton.puntosASumar:= mJugadasValidas[i].puntosASumar;
           end;
      end;
-     Glotonpc := jgloton;
+     mJugadaGloton := jGloton;
 end;
