@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Compiler Value="C:\lazarus\fpc\3.0.2\bin\i386-win32\fpc.exe" Date="1247517510"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq &quot;-FiC:\Users\Yoel\Google Drive\FIUBA\01 Algoritmos I\Algo1TP1Reversi\PRINCIPAL\lib\i386-win32&quot; &quot;-FuC:\Users\Yoel\Google Drive\FIUBA\01 Algoritmos I\Algo1TP1Reversi\PRINCIPAL\&quot; &quot;-FUC:\Users\Yoel\Google Drive\FIUBA\01 Algoritmos I\Algo1TP1Reversi\PRINCIPAL\lib\i386-win32\&quot; principal.pas"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq -FiC:\Users\FIN-GALLO\Desktop\algotp1\PRINCIPAL\lib\i386-win32 -FuC:\Users\FIN-GALLO\Desktop\algotp1\PRINCIPAL\ -FUC:\Users\FIN-GALLO\Desktop\algotp1\PRINCIPAL\lib\i386-win32\ principal.pas"/>
 </CONFIG>
