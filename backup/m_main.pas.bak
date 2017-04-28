@@ -265,5 +265,3 @@ begin
       resultado:= false;
   JugadorEsHumano:= resultado;
 end;
-
-

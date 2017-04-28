@@ -62,7 +62,6 @@
       <Unit6>
         <Filename Value="tableroInicial_2.0.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tableroInicial"/>
       </Unit6>
       <Unit7>
         <Filename Value="m_DatosJugadores.pas"/>
@@ -71,7 +70,6 @@
       <Unit8>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Reversi__"/>
       </Unit8>
       <Unit9>
         <Filename Value="InvertirFichas.pas"/>

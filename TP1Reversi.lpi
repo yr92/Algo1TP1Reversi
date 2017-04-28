@@ -30,7 +30,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
@@ -62,7 +62,6 @@
       <Unit6>
         <Filename Value="tableroInicial_2.0.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tableroInicial"/>
       </Unit6>
       <Unit7>
         <Filename Value="m_DatosJugadores.pas"/>
@@ -71,7 +70,6 @@
       <Unit8>
         <Filename Value="Comienzo y Mostrar Matriz.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Reversi__"/>
       </Unit8>
       <Unit9>
         <Filename Value="InvertirFichas.pas"/>
@@ -90,6 +88,11 @@
         <Filename Value="Gloton.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="PRINCIPAL.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Reversi"/>
+      </Unit13>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

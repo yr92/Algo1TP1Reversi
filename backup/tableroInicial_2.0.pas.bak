@@ -41,11 +41,11 @@ function EstaVacio(mMatriz: tvMatriz; x,y: byte): boolean;
 var
    vacio: boolean;
 begin
-    if ((mMatriz[x,y] = FICHA_BLANCA) or (mMatriz[x,y] = FICHA_NEGRA)) then
-      vacio:= false
-    else
-      vacio:= true;
-    EstaVacio:= vacio;
+	if ((mMatriz[x,y] = FICHA_BLANCA) or (mMatriz[x,y] = FICHA_NEGRA)) then
+	  vacio:= false
+	else
+	  vacio:= true;
+	EstaVacio:= vacio;
 end; 
 
 procedure InicializarMatriz(var mMatriz: tMatriz);
@@ -81,30 +81,13 @@ begin
 end;
 //
 
-procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugadores: tJugadores; var mJugadasValidas: tJugadasValidas);
-begin
-    IngresarJugada(mJugada, mJugadores);
-    if JugadaEstaEnCursorValidas(mJugada, mJugadasValidas) = true then
-       mJugada.valida:= true;
-    else
-       mJugada.valida:= false;
-end;
-
-
-function JugadaEstaEnCursorValidas(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas): boolean;
+procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugador: trJugador; var mMatriz: tMatriz; var mDirecciones: tDirecciones);
 var
-  i: byte;
-  resultado: boolean;
+    x,y:string;
+    valido: boolean;
 begin
-  i:= 1;
-  resultado:= false;
-  while (i < MAX_JUGADASVALIDAS and mJugadasValidas[i].x> 0) or resultado = true do
-  begin
-      if (mJugadasValidas[i].x = mJugada.x) and (mJugadasValidas[i].y = mJugada.y) then
-        resultado:= true;
-      inc(i);
-  end;
-  JugadaEstaEnCursorValidas:= resultado;
+    IngresarJugada(mJugada, mJugador);
+    ValidarJugada(jugada, mMatriz, vDirecciones);
 end;
 
 procedure MostrarErrorJugada(var mJugada: trJugada);
@@ -112,26 +95,29 @@ begin
     println('La jugada no es válida. ' + jugada.mensajeError);
 end;
 
-procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
+procedure IngresarJugada(var mJugada: trJugada; var mJugador: trJugador);
+var
+    x,y:string;
+    valido: boolean;
 begin
-    IngresarCoordenada(mJugada, mJugadores, STR_FILA);
-    IngresarCoordenada(mJugada, mJugadores, STR_COLUMNA);
+    IngresarCoordenada(mJugada, mJugador, 'fila');
+    IngresarCoordenada(mJugada, mJugador, 'columna');
 end;
 
-procedure IngresarCoordenada(var mJugada: trJugada; var mJugadores: tJugadores; filaOcolumna: string);
+procedure IngresarCoordenada(var mJugada: trJugada; var mJugador: trJugador; filaOcolumna: string);
 var
     dato: string;
     valido: boolean;
 begin
     repeat
-      write('Jugador ' + mJugadores[trJugada].nombre + ', ingrese la ' + filaOcolumna + ' de su jugada: ');
+      write('Jugador ' + mJugador.nombre + ', ingrese la ' + filaOcolumna + ' de su jugada: ');
       readln(dato);
       if validarTexto(dato) = false then
          writeln('Dato inválido. El valor ingresado debe ser un único número entre 1 y 8.');
       else
          valido := true;
      until valido;
-     if filaOcolumna = STR_FILA then
+     if filaOcolumna = 'fila' then
           mJugada.X := strtoint(dato);
      else
           mJugada.Y := strtoint(dato);
