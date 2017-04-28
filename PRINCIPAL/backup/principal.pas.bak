@@ -391,12 +391,12 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
     resultado := False;
     i := 1;
     j := 1;
-    //writeln('casillas vacias, hay o no hay?');
+    writeln('casillas vacias, hay o no hay?');
     while (i < MAX_FILASCOLUMNAS) and resultado = False do
     begin
       while (j < MAX_FILASCOLUMNAS) and resultado = False do
       begin
-        //writeln('probando probando');
+        writeln('probando probando');
         if mMatriz[i, j].ficha <> FICHA_VACIA then
           resultado := True;
         inc(j);
@@ -561,17 +561,16 @@ end;
       begin
         writeln('empezando a validarrrrr');
         for i := 1 to MAX_FILASCOLUMNAS do
-          jugadaAValidar.x := i;
           for j := 1 to MAX_FILASCOLUMNAS do
-            jugadaAValidar.y := j;
-            if (CasilleroEstaVacio(jugadaAValidar, mMatriz) = true) then
-            begin
-              writeln(i,',',j,'esta vacio');
-              //jugadaAValidar no tiene ficha! solo coordenadas!!
-              if ChequearJugadaValida(mMatriz, mDirecciones,
-                mJugadaTurnoActual, jugadaAValidar) = True then
-                AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
-            end;
+            jugadaAValidar.x := i;
+        jugadaAValidar.y := j;
+        if (CasilleroEstaVacio(jugadaAValidar, mMatriz)) then
+        begin
+          //jugadaAValidar no tiene ficha! solo coordenadas!!
+          if ChequearJugadaValida(mMatriz, mDirecciones,
+            mJugadaTurnoActual, jugadaAValidar) = True then
+            AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
+        end;
       end;
     end;
   end;
