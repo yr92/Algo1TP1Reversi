@@ -760,36 +760,33 @@ begin
     ReiniciarTablero(mMatriz);
     RefrescarPantalla(mMatriz, vJugadores);
     //empieza el partido
-    repeat //repeat 2, de toda la partida
+  // repeat //repeat 2, de toda la partida
       MostrarTurno(vJugadores, jugada);
       writeln('listando jugadas validas');
       ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
       writeln('jugadas validas listadas');
-      if HayJugadasValidas(vJugadasValidas) then
-      begin
+      if not HayJugadasValidas(vJugadasValidas) then  //Al parecer, poniendo not, anda :P
         if JugadorEsHumano(jugada, vJugadores) then
           JugarHumano(jugada, vJugadores, mMatriz, vDirecciones, vJugadasValidas)
         else
           JugarGloton(jugada, mMatriz, vDirecciones, vJugadasValidas)
-      end
       else
       begin
         if 1 = 1 then//TerminoElPartido(mMatriz, jugada) then
           //para ver si termino o si tiene que pasar nomas
           gameOver := True
         else
-          writeln('Jugador ' + vJugadores[jugada.jugador].Nombre +
+          writeln('Jugador ', vJugadores[jugada.jugador].Nombre,
             ', no tiene movimientos posibles, deberá pasar su turno.');
       end;
-      RefrescarPantalla(mMatriz, vJugadores);
+     // RefrescarPantalla(mMatriz, vJugadores);
       DibujarTablero(mMatriz, vJugadores);
       CalcularYMostrarPuntos(mMatriz, vJugadores, false);
       //PasarTurno(jugada);
       //JuegoTerminado();
-    until gameOver; //fin repeat de todo el partido
+    //until gameOver; //fin repeat de todo el partido
 
     CalcularYMostrarPuntos(mMatriz, vJugadores, true);
     //otra partida? s/n - se la banca suelta como funcion o hay que declarar var y demas?
   until (otraPartida() = False);  //fin repeat 1,
-end.
-
+end.         
