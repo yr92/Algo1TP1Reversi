@@ -207,7 +207,7 @@ begin
   for i:= 1 to FILAS do
     for j:=1 to COLUMNAS do
         mMatriz[i,j].ficha := FICHA_VACIA;
-        mMatriz[i,j].jugadaValida := false;
+        //mMatriz[i,j].jugadaValida := false;
 end;
 
 procedure InicializarMatriz(var mMatriz: tMatriz);
@@ -339,7 +339,17 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
     JugadaEstaEnCursorValidas := resultado;
   end;
 
-  function validarTexto(mDato: string): boolean;
+
+procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugadores: tJugadores; var mJugadasValidas: tJugadasValidas);
+begin
+    IngresarJugada(mJugada, mJugadores);
+    if JugadaEstaEnCursorValidas(mJugada, mJugadasValidas) = true then
+       mJugada.valida:= true
+    else
+       mJugada.valida:= false;
+end;
+
+function validarTexto(mDato: string): boolean;
   var
     valido: boolean;
   begin
@@ -373,7 +383,7 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
 
   procedure MostrarErrorJugada(var mJugada: trJugada);
   begin
-    writeln('La jugada no es válida. ' , jugada.mensajeError);
+    writeln('La jugada no es válida. ' , mJugada.mensajeError);
   end;
 
   procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
@@ -384,7 +394,7 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
 
   procedure MostrarErrorJugada(var mJugada: trJugada);
   begin
-    writeln('La jugada no es válida. ' + jugada.mensajeError);
+    writeln('La jugada no es válida. ' + mJugada.mensajeError);
   end;
 
   function HayCasillasVacias(var mMatriz: tMatriz): boolean;
@@ -460,7 +470,7 @@ var
 begin
   if (mJugada.x <= MAX_FILASCOLUMNAS) and (mJugada.x >= MIN_FILASCOLUMNAS) then
   begin
-    if mJugada.y <= MAX_FILASCOLUMNAS and mJugada.y >= MIN_FILASCOLUMNAS then
+    if (mJugada.y <= MAX_FILASCOLUMNAS) and (mJugada.y >= MIN_FILASCOLUMNAS) then
       resultado := True
     else
       resultado := False;
@@ -535,8 +545,8 @@ end;
     guardado: boolean;
   begin
     i := 0;
-    guardado := False;
-    while i < MAX_JUGADASVALIDAS and guardado = False do ;
+    guardado := false;
+    while (i < MAX_JUGADASVALIDAS) and (guardado = false) do ;
     begin
       Inc(i);
       with mJugadasValidas[i] do ;
@@ -594,7 +604,7 @@ end;
   procedure RefrescarPantalla(var mMatriz: tMatriz; var mJugadores: tJugadores);
   begin
     ClrScr;
-    DibujarTablero(mMatriz, vJugadores);
+    DibujarTablero(mMatriz, mJugadores);
   end;
 
   procedure JugarHumano(var mJugada: trJugada; var mJugadores: tJugadores;
@@ -673,9 +683,9 @@ end;
     i: byte;
   begin
     i := 0;
-    while i < MAX_JUGADASVALIDAS and mJugadasValidas[i].valida = True do
+    while (i < MAX_JUGADASVALIDAS) and (mJugadasValidas[i].valida = true) do
     begin
-      while mJugadasValidas[i] do
+      with mJugadasValidas[i] do
       begin
         x := 0;
         y := 0;
@@ -685,6 +695,50 @@ end;
       Inc(i);
     end;
   end;
+
+procedure CalcularYMostrarPuntos(var mMatriz: tMatriz; var mJugadores: tJugadores; esResultadoFinal: boolean);
+begin
+     CalcularPuntos(mMatriz, mJugadores);
+     MostrarPuntos(mJugadores, esResultadoFinal);
+end
+
+procedure CalcularPuntos(var mMatriz: tMatriz, var mJugadores: tJugadores)
+var
+    i,j: byte;
+begin
+  mJugadores[FICHA_BLANCA].puntos = 0;
+  mJugadores[FICHA_NEGRA].puntos = 0;
+  for i:= 1 to MAX_FILASCOLUMNAS do
+    for j:=1 to MAX_FILASCOLUMNAS do
+        if mMatriz[i,j] <> FICHA_VACIA then
+           if mMatriz[i,j] = FICHA_BLANCA then
+             inc(mJugadores[FICHA_BLANCA].puntos);
+           else
+             inc(mJugadores[FICHA_NEGRA].puntos);
+end;
+
+procedure MostrarPuntos(var mJugadores: tJugadores, esResultadoFinal: boolean)
+begin
+  if esResultadoFinal = true then writeln('RESULTADO FINAL DEL PARTIDO:');
+  writeln('Jugador ' + mJugadores[FICHA_BLANCA].nombre + ': ' + mJugadores[FICHA_BLANCA].puntos + ' puntos.');
+  writeln('Jugador ' + mJugadores[FICHA_NEGRA].nombre + ': ' + mJugadores[FICHA_NEGRA].puntos + ' puntos.');
+end;
+
+procedure MostrarGanadores(var mJugadores: tJugadores)
+var
+    ganador: byte;
+begin
+  if mJugadores[FICHA_BLANCA].puntos <>  mJugadores[FICHA_NEGRA].puntos then
+  begin
+       if mJugadores[FICHA_BLANCA].puntos >  mJugadores[FICHA_NEGRA].puntos then
+          ganador := FICHA_BLANCA;
+       else
+          ganador := FICHA_NEGRA;
+       writeln ('Felicidades ' + mJugadores[ganador].nombre + ', ganaste!')
+  end
+  else
+      writeln('¿Empataron? ¡Qué embole!');
+end;
 
   function JugadorEsHumano(var mJugada: trJugada; var mJugadores: tJugadores): boolean;
   var
@@ -730,7 +784,7 @@ begin
           //para ver si termino o si tiene que pasar nomas
           gameOver := True
         else
-          writeln('Jugador ' + mJugador.Nombre +
+          writeln('Jugador ', vJugadores.nombre,
             ', no tiene movimientos posibles, deberá pasar su turno.');
       end;
       RefrescarPantalla(mMatriz, vJugadores);
@@ -743,5 +797,5 @@ begin
     MostrarResultadoFinal(vJugadores, mMatriz);
     MostrarGanador(vJugadores);
     //otra partida? s/n - se la banca suelta como funcion o hay que declarar var y demas?
-  until (otraPartida() = False);  //fin repeat 1,
-end.                   
+  until (not otraPartida());  //fin repeat 1,
+end.                               
