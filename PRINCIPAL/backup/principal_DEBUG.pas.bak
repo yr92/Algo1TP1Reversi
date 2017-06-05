@@ -1,4 +1,4 @@
-program principal;
+program principal_DEBUG;
 
 uses
   Crt;
@@ -459,9 +459,9 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
   begin
     i := 0;
     guardado := False;
-    while (i < MAX_DIRECCIONES) and guardado = False do ;
+    while (i < MAX_DIRECCIONES) and guardado = False do
     begin
-      Inc(i);
+      i := i + 1;
       if mJugada.direccionesValidas[i] = 0 then
       begin
         mJugada.direccionesValidas[i] := direccion;
@@ -516,11 +516,11 @@ end;
       //readln();
       if jugadaEstaEnTablero(jugadaAux) = True then
       begin
-        writeln('esta en el tablero, sigo validando');
-        readln();
-        if CasilleroEstaVacio(jugadaAux, mMatriz) = True then
+        //writeln('esta en el tablero, sigo validando');
+        //readln();
+        if CasilleroEstaVacio(jugadaAux, mMatriz) = False then
         begin
-          writeln('esta vacio');
+          writeln('no esta vacio!');
           readln();
           if CasilleroHayFicha(jugadaAux, fichaRival, mMatriz) = True then
           begin
@@ -532,6 +532,8 @@ end;
             while jugadaEstaEnTablero(jugadaAux) = True and
               CasilleroEstaVacio(jugadaAux, mMatriz) = False and sigoRecorriendo = True do
             begin
+              writeln('estoy recorriendo :D');
+              readln();
               Inc(contadorPuntosASumar);
               if CasilleroHayFicha(jugadaAux, fichaJugador, mMatriz) = True then
               begin
@@ -543,6 +545,7 @@ end;
               end
               else //hay otra ficha rival
               begin
+                writeln('hay ficha rival, sigo recorriendo');
                 jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
                 jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
               end;
@@ -600,8 +603,8 @@ end;
         begin
           jugadaAValidar.y := i;
           writeln(i);
-          if jugadaavalidar.y = 3 then
-             writeln('entro a la 3er fila');
+          //if jugadaavalidar.y = 3 then
+          //   writeln('entro a la 3er fila');
           for j := 1 to MAX_FILASCOLUMNAS do
           begin
             jugadaAValidar.x := j;

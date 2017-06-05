@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="10"/>
+    <BuildModes Active="Default"/>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="principal_DEBUG.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="527"/>
+        <CursorPos X="39" Y="499"/>
+        <UsageCount Value="57"/>
+        <Loaded Value="True"/>
+      </Unit0>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="811" Column="20" TopLine="806"/>
+      </Position1>
+      <Position2>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="120" Column="17" TopLine="104"/>
+      </Position2>
+      <Position3>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="103" TopLine="92"/>
+      </Position3>
+      <Position4>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="462" Column="56" TopLine="451"/>
+      </Position4>
+      <Position5>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="455" TopLine="451"/>
+      </Position5>
+      <Position6>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="462" Column="56" TopLine="451"/>
+      </Position6>
+      <Position7>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="103" TopLine="95"/>
+      </Position7>
+      <Position8>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="105" TopLine="95"/>
+      </Position8>
+      <Position9>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="106" TopLine="95"/>
+      </Position9>
+      <Position10>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="107" TopLine="95"/>
+      </Position10>
+      <Position11>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="108" TopLine="95"/>
+      </Position11>
+      <Position12>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="109" TopLine="95"/>
+      </Position12>
+      <Position13>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="110" TopLine="95"/>
+      </Position13>
+      <Position14>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="111" Column="23" TopLine="95"/>
+      </Position14>
+      <Position15>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="112" Column="15" TopLine="95"/>
+      </Position15>
+      <Position16>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="111" TopLine="95"/>
+      </Position16>
+      <Position17>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="103" TopLine="95"/>
+      </Position17>
+      <Position18>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="105" TopLine="95"/>
+      </Position18>
+      <Position19>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="106" Column="67" TopLine="206"/>
+      </Position19>
+      <Position20>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="297" Column="21" TopLine="279"/>
+      </Position20>
+      <Position21>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="550" Column="34" TopLine="533"/>
+      </Position21>
+      <Position22>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="542" Column="37" TopLine="533"/>
+      </Position22>
+      <Position23>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="544" Column="36" TopLine="533"/>
+      </Position23>
+      <Position24>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="533" TopLine="532"/>
+      </Position24>
+      <Position25>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="535" TopLine="531"/>
+      </Position25>
+      <Position26>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="536" Column="20" TopLine="531"/>
+      </Position26>
+      <Position27>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="538" TopLine="531"/>
+      </Position27>
+      <Position28>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="542" Column="45" TopLine="531"/>
+      </Position28>
+      <Position29>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="541" TopLine="531"/>
+      </Position29>
+      <Position30>
+        <Filename Value="principal_DEBUG.pas"/>
+        <Caret Line="544" TopLine="531"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="5">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="principal.pas"/>
+        <Line Value="455"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="principal.pas"/>
+        <Line Value="282"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="principal_DEBUG.pas"/>
+        <Line Value="541"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="principal_DEBUG.pas"/>
+        <Line Value="549"/>
+      </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="principal_DEBUG.pas"/>
+        <Line Value="545"/>
+      </Item5>
+    </BreakPoints>
+  </Debugging>
+</CONFIG>

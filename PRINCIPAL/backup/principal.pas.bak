@@ -251,11 +251,15 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
   var
     vacio: boolean;
   begin
+    //writeln('estoy validando en CasilleroEstaVacio()');
+    //readln();
     if mMatriz[mJugada.x, mJugada.y].ficha = FICHA_VACIA then
       vacio := True
     else
       vacio := False;
     CasilleroEstaVacio := vacio;
+    //writeln(vacio);
+    //readln();
   end;
 
   function CasilleroHayFicha(var mJugadaAValidar: trJugada;
@@ -264,15 +268,26 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
   var
     resultado: boolean;
   begin
+    resultado := false;
+    writeln('estoy en casillerohayficha');
+    readln();
     if CasilleroEstaVacio(mJugadaAValidar, mMatriz) = False then
     begin
       if (mMatriz[mJugadaAValidar.x, mJugadaAValidar.y].ficha = fichaAEncontrar) then
-        resultado := True
+         begin
+              resultado := True;
+         end;
       else
-        resultado := False;
+      begin
+            writeln('hay ficha propia');
+            readln();
+        end;
+
+      //else
+        //resultado := False;
       //CasilleroHayFichaRival:= resultado;
-      CasilleroHayFicha := resultado;
     end;
+    CasilleroHayFicha := resultado;
   end;
 
   procedure voltearFichas(var mJugada: trJugada; var mMatriz: tMatriz;
@@ -467,8 +482,6 @@ begin
       resultado := True
 
   end;
-  //else
-    //estaAdentro := False;
   jugadaEstaEnTablero := resultado;
 end;
 
@@ -489,27 +502,31 @@ end;
       fichaRival := FICHA_NEGRA
     else
       fichaRival := FICHA_BLANCA;
-    //writeln('valido las direcciones para ', mJugadaAValidar.x, ',', mJugadaAValidar.y);
+    writeln('valido las direcciones para ', mJugadaAValidar.x, ',', mJugadaAValidar.y);
+    //readln();
     for i := 1 to MAX_DIRECCIONES do
     begin
-      //writeln('miro en la direccion ', i);
+      writeln('miro en la direccion ', i);
+      //readln();
       contadorPuntosASumar := 0;
       jugadaAux.x := mJugadaAValidar.x + mDirecciones[i].dirX;
       jugadaAux.y := mJugadaAValidar.y + mDirecciones[i].dirY;
       sigoRecorriendo := True;
-      //writeln('que hay en el casillero ',jugadaAux.x,',',jugadaAux.y,'?');
+      writeln('que hay en el casillero ',jugadaAux.x,',',jugadaAux.y,'?');
+      //readln();
       if jugadaEstaEnTablero(jugadaAux) = True then
       begin
-        //writeln('esta en el tablero, sigo validando');
-        //readln();
-        if CasilleroEstaVacio(jugadaAux, mMatriz) = False then
+        writeln('esta en el tablero, sigo validando');
+        readln();
+        if CasilleroEstaVacio(jugadaAux, mMatriz) = True then
         begin
-          //writeln('esta vacio');
-          //readln();
+          writeln('esta vacio');
+          readln();
           if CasilleroHayFicha(jugadaAux, fichaRival, mMatriz) = True then
           begin
             //encontre una ficha rival, empiezo a recorrer en la direccion
-            //writeln('encontre una ficha rival, empiezo a recorrer en la direccion');
+            writeln('encontre una ficha rival en ', jugadaAux.x , ',', jugadaAux.y , ', empiezo a recorrer en la direccion');
+            readln();
             jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
             jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
             while jugadaEstaEnTablero(jugadaAux) = True and
@@ -535,8 +552,8 @@ end;
       end;
 
     end;
-    //writeln('la jugada no es valida');
-    //readln();
+    writeln('la jugada no es valida');
+    readln();
     ChequearJugadaValida := esValida;
   end;
 
@@ -576,26 +593,30 @@ end;
       //  readln();
       if HayFichasAmbosColores(mMatriz) then
       begin
-      //  writeln('hay dfe ambos colores');
-      //  writeln('empezando a validarrrrr');
-      //  readln();
+        //writeln('hay dfe ambos colores');
+        //writeln('empezando a validarrrrr');
+        //readln();
         for i := 1 to MAX_FILASCOLUMNAS do
         begin
-          jugadaAValidar.x := i;
-          //writeln(i);
+          jugadaAValidar.y := i;
+          writeln(i);
+          if jugadaavalidar.y = 3 then
+             writeln('entro a la 3er fila');
           for j := 1 to MAX_FILASCOLUMNAS do
           begin
-            jugadaAValidar.y := j;
-            //writeln(j);
-            //writeln('valido ',i,',',j);
+            jugadaAValidar.x := j;
+            writeln(j);
+            writeln('valido ',i,',',j);
             if (CasilleroEstaVacio(jugadaAValidar, mMatriz) = true) then
             begin
-              //writeln(i,',',j,'esta vacio');
+              writeln(i,',',j,' esta vacio');
+              //readln();
               //jugadaAValidar no tiene ficha! solo coordenadas!!
               if ChequearJugadaValida(mMatriz, mDirecciones,
                 mJugadaTurnoActual, jugadaAValidar) = True then
                 begin
-              //    writeln('hay jugada valida en ',i,',',j, ', al vector!');
+                  writeln('hay jugada valida en ',i,',',j, ', al vector!');
+                  readln();
                   AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
 
                 end;
@@ -792,9 +813,9 @@ begin
     //empieza el partido
   // repeat //repeat 2, de toda la partida
       MostrarTurno(vJugadores, jugada);
-      //writeln('listando jugadas validas');
+      writeln('listando jugadas validas');
       ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
-      //writeln('jugadas validas listadas');
+      writeln('jugadas validas listadas');
       if not HayJugadasValidas(vJugadasValidas) then  //Al parecer, poniendo not, anda :P
         if JugadorEsHumano(jugada, vJugadores) then
           JugarHumano(jugada, vJugadores, mMatriz, vDirecciones, vJugadasValidas)
