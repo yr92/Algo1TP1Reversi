@@ -459,7 +459,7 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
   begin
     i := 0;
     guardado := False;
-    while (i < MAX_DIRECCIONES) and guardado = False do
+    while (i < MAX_DIRECCIONES) and guardado <> True do
     begin
       i := i + 1;
       if mJugada.direccionesValidas[i] = 0 then
@@ -530,8 +530,8 @@ end;
             readln();
             jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
             jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
-            while jugadaEstaEnTablero(jugadaAux) = True and
-              CasilleroEstaVacio(jugadaAux, mMatriz) = False and sigoRecorriendo = True do
+            while (jugadaEstaEnTablero(jugadaAux) = True) and
+              (CasilleroEstaVacio(jugadaAux, mMatriz) = False) and (sigoRecorriendo = True) do
             begin
               writeln('estoy recorriendo :D');
               readln();
@@ -569,19 +569,29 @@ end;
   begin
     i := 0;
     guardado := False;
-    while (i < MAX_JUGADASVALIDAS) and (guardado = False) do ;
+    while (i < MAX_JUGADASVALIDAS) and (guardado = False) do
     begin
       Inc(i);
-        if mJugadasValidas[i].x = 0 then
-        begin
-          mJugadasValidas[i].x := mJugada.x;
-          mJugadasValidas[i].y := mJugada.y;
-          mJugadasValidas[i].puntosASumar := mJugada.puntosASumar;
-          guardado := True;
-          mJugadasValidas[i].direccionesValidas := mJugada.direccionesValidas;
-        end;
+      if mJugadasValidas[i].x = 0 then
+      begin
+        mJugadasValidas[i].x := mJugada.x;
+        mJugadasValidas[i].y := mJugada.y;
+        mJugadasValidas[i].puntosASumar := mJugada.puntosASumar;
+        guardado := True;
+        mJugadasValidas[i].direccionesValidas := mJugada.direccionesValidas;
+      end;
     end;
   end;
+
+ procedure JugadaInicializarDirsValidas (var mJugada: trJugada);
+ var
+   i: byte;
+ begin
+   for i := 1 to MAX_DIRECCIONES do
+   begin
+     mJugada.direccionesValidas[i] := 0;
+   end;
+ end;
 
   procedure ListarJugadasValidas(var mMatriz: tMatriz;
   var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores;
@@ -608,18 +618,19 @@ end;
           //   writeln('entro a la 3er fila');
           for j := 1 to MAX_FILASCOLUMNAS do
           begin
+            JugadaInicializarDirsValidas(jugadaAValidar);
             jugadaAValidar.x := j;
             writeln(j);
-            writeln('valido ',i,',',j);
+            writeln('valido ',j,',',i);
             if (CasilleroEstaVacio(jugadaAValidar, mMatriz) = true) then
             begin
-              writeln(i,',',j,' esta vacio');
+              writeln(j,',',i,' esta vacio');
               //readln();
               //jugadaAValidar no tiene ficha! solo coordenadas!!
               if ChequearJugadaValida(mMatriz, mDirecciones,
                 mJugadaTurnoActual, jugadaAValidar) = True then
                 begin
-                  writeln('hay jugada valida en ',i,',',j, ', al vector!');
+                  writeln('hay jugada valida en ',j,',',i, ', al vector!');
                   readln();
                   AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
 
@@ -662,7 +673,7 @@ end;
   var mMatriz: tMatriz; var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
   begin
     repeat
-      IngresarYValidarJugada(mJugada, mJugadores, mJugadasValidas);
+      IngresarYValidarJugada(mJugada, mJugadores, mJugadasValidas);      //el debug ahora llega hasta aca! - y 13/06/17
       if mJugada.valida = True then
         HacerJugada(mJugada, mMatriz, mDirecciones)
       else
@@ -719,6 +730,7 @@ end;
     repeat
       Write('Juego terminado - Otra partida? S/N: ');
       Read(dato);
+      readln();
       if ValidarSN(dato) = True then
         valido := True;
     until valido = True;
@@ -820,7 +832,8 @@ begin
       writeln('listando jugadas validas');
       ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
       writeln('jugadas validas listadas');
-      if not HayJugadasValidas(vJugadasValidas) then  //Al parecer, poniendo not, anda :P
+      readln();    //falta arreglar que sume bien la ant de puntos de cada jugadaaaaaaaaaa!! - y 13/06/17
+      if HayJugadasValidas(vJugadasValidas) then
         if JugadorEsHumano(jugada, vJugadores) then
           JugarHumano(jugada, vJugadores, mMatriz, vDirecciones, vJugadasValidas)
         else
