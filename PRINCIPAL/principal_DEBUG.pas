@@ -269,19 +269,19 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
     resultado: boolean;
   begin
     resultado := false;
-    writeln('estoy en casillerohayficha');
-    readln();
+    //writeln('estoy en casillerohayficha');
+    //readln();
     if CasilleroEstaVacio(mJugadaAValidar, mMatriz) = False then
     begin
       if (mMatriz[mJugadaAValidar.x, mJugadaAValidar.y].ficha = fichaAEncontrar) then
-         begin
+         //begin
               resultado := True;
-         end
-      else
-      begin
-            writeln('hay ficha propia');
-            readln();
-        end;
+         //end
+      //else
+      //begin
+            //writeln('hay ficha propia');
+           // readln();
+        //end;
 
       //else
         //resultado := False;
@@ -344,7 +344,7 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
   begin
     i := 1;
     resultado := False;
-    while ((i < MAX_JUGADASVALIDAS) and (mJugadasValidas[i].x > 0) and resultado = true) do
+    while (i <= MAX_JUGADASVALIDAS) and (mJugadasValidas[i].x <> 0) and (resultado = False) do
     begin
       if (mJugadasValidas[i].x = mJugada.x) and (mJugadasValidas[i].y = mJugada.y) then
         resultado := True;
@@ -356,11 +356,16 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
   function validarTexto(mDato: string): boolean;
   var
     valido: boolean;
+    I, L, Code : Integer;
   begin
-    if length(mDato) <> 1 then
-      valido := False
+    val(mDato,I,Code);
+    //writeln (length(mDato));
+    L := length(mDato);
+    //readln();
+    if (L = 1) and (I > 0) and (I < 9) then
+      valido := True
     else
-      valido := True;
+      valido := False;
     validarTexto := valido;
   end;
 
@@ -372,11 +377,11 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
     code: integer;
   begin
     repeat
-      write('Jugador ' , mJugadores[mJugada.jugador].nombre , ', ingrese la ' ,
+      writeln('Jugador ' , mJugadores[mJugada.jugador].nombre , ', ingrese la ' ,
         filaOcolumna , ' de su jugada: ');
       readln(dato);
       if validarTexto(dato) = False then
-        writeln('Dato inválido. El valor ingresado debe ser un único número entre 1 y 8.')
+        writeln('Dato invalido. El valor ingresado debe ser un unico numero entre 1 y 8.')
       else
         valido := True;
     until valido;
@@ -388,7 +393,7 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
 
   procedure MostrarErrorJugada(var mJugada: trJugada);
   begin
-    writeln('La jugada no es válida. ' , mJugada.mensajeError);
+    writeln('La jugada no es valida. ' , mJugada.mensajeError);
   end;
 
   procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
@@ -521,20 +526,20 @@ end;
         //readln();
         if CasilleroEstaVacio(jugadaAux, mMatriz) = False then
         begin
-          writeln('no esta vacio!');
-          readln();
+          //writeln('no esta vacio!');
+          //readln();
           if CasilleroHayFicha(jugadaAux, fichaRival, mMatriz) = True then
           begin
             //encontre una ficha rival, empiezo a recorrer en la direccion
-            writeln('encontre una ficha rival en ', jugadaAux.x , ',', jugadaAux.y , ', empiezo a recorrer en la direccion');
-            readln();
+            //writeln('encontre una ficha rival en ', jugadaAux.x , ',', jugadaAux.y , ', empiezo a recorrer en la direccion');
+            //readln();
             jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
             jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
             while (jugadaEstaEnTablero(jugadaAux) = True) and
               (CasilleroEstaVacio(jugadaAux, mMatriz) = False) and (sigoRecorriendo = True) do
             begin
-              writeln('estoy recorriendo :D');
-              readln();
+              //writeln('estoy recorriendo :D');
+              //readln();
               Inc(contadorPuntosASumar);
               if CasilleroHayFicha(jugadaAux, fichaJugador, mMatriz) = True then
               begin
@@ -546,7 +551,7 @@ end;
               end
               else //hay otra ficha rival
               begin
-                writeln('hay ficha rival, sigo recorriendo');
+                //writeln('hay ficha rival, sigo recorriendo');
                 jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
                 jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
               end;
@@ -556,8 +561,8 @@ end;
       end;
 
     end;
-    writeln('la jugada no es valida');
-    readln();
+    //writeln('la jugada no es valida');
+    //readln();
     ChequearJugadaValida := esValida;
   end;
 
