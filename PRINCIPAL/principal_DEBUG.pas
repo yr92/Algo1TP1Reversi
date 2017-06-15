@@ -296,11 +296,12 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
     jugadaAux: trJugada;
     sigoRecorriendo: boolean;
   begin
-    jugadaAux.x := jugadaAux.x +
+    jugadaAux.x := mJugada.x +
       mDirecciones[mJugada.direccionesValidas[mDireccion]].dirX;
-    jugadaAux.y := jugadaAux.y +
+    jugadaAux.y := mJugada.y +
       mDirecciones[mJugada.direccionesValidas[mDireccion]].dirY;
     sigoRecorriendo := True;
+    mMatriz[mJugada.x, mJugada.y].ficha := mJugada.jugador;
     while sigoRecorriendo = True do
     begin
       if CasilleroHayFicha(jugadaAux, mJugada.jugador, mMatriz) = True then
@@ -347,7 +348,10 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
     while (i <= MAX_JUGADASVALIDAS) and (mJugadasValidas[i].x <> 0) and (resultado = False) do
     begin
       if (mJugadasValidas[i].x = mJugada.x) and (mJugadasValidas[i].y = mJugada.y) then
+      begin
         resultado := True;
+        mJugada.direccionesValidas:= mJugadasValidas[i].direccionesValidas;
+      end;
       Inc(i);
     end;
     JugadaEstaEnCursorValidas := resultado;
@@ -398,8 +402,8 @@ procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
 
   procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
   begin
-    IngresarCoordenada(mJugada, mJugadores, STR_FILA);
     IngresarCoordenada(mJugada, mJugadores, STR_COLUMNA);
+    IngresarCoordenada(mJugada, mJugadores, STR_FILA);
   end;
 
   function HayCasillasVacias(var mMatriz: tMatriz): boolean;
@@ -682,8 +686,10 @@ end;
       if mJugada.valida = True then
         HacerJugada(mJugada, mMatriz, mDirecciones)
       else
+      begin
         RefrescarPantalla(mMatriz, mJugadores);
-      MostrarErrorJugada(mJugada);
+        MostrarErrorJugada(mJugada)
+      end;
     until mJugada.valida;
   end;
 
