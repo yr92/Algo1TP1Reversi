@@ -505,7 +505,7 @@ end;
     esValida: boolean;
     contadorPuntosASumar: byte;
   begin
-    mjugadaAValidar.puntosASumar := 0;
+    mjugadaAValidar.puntosASumar := 1;
     esValida := False;
     fichaJugador := mJugadaTurnoActual.jugador;
     if fichaJugador = FICHA_BLANCA then
@@ -518,7 +518,7 @@ end;
     begin
       //writeln('miro en la direccion ', i);
       //readln();
-      contadorPuntosASumar := 1;
+      contadorPuntosASumar := 0;
       jugadaAux.x := mJugadaAValidar.x + mDirecciones[i].dirX;
       jugadaAux.y := mJugadaAValidar.y + mDirecciones[i].dirY;
       sigoRecorriendo := True;
@@ -833,6 +833,22 @@ end;
       readln();
   end;
 
+function TerminoElPartido(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas; var mJugadores: tJugadores): boolean;
+var
+    res: boolean;
+    i: byte;
+begin
+    res:= false;
+    if mJugada.jugador = FICHA_BLANCA then
+        mJugada.jugador := FICHA_NEGRA
+    else
+        mJugada.jugador := FICHA_BLANCA;
+    inicializarJugadasValidas(mJugadasValidas);
+    writeln('Jugador ', mJugadores[mJugada.jugador].Nombre, ', es su turno, presione una tecla para continuar.');
+    readln();
+    TerminoElPartido := res;
+end;
+
 var
   mMatriz: tMatriz;
   vJugadores: tJugadores;
@@ -848,13 +864,14 @@ begin
     PedirDatosJugadores(vJugadores);
     ReiniciarTablero(mMatriz);
     RefrescarPantalla(mMatriz, vJugadores);
+    //ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
     //empieza el partido
     repeat //repeat 2, de toda la partida
       MostrarTurno(vJugadores, jugada);
       //writeln('listando jugadas validas');
       ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
       //writeln('jugadas validas listadas');
-      readln();    //falta arreglar que sume bien la ant de puntos de cada jugadaaaaaaaaaa!! - y 13/06/17
+      //readln();    //falta arreglar que sume bien la ant de puntos de cada jugadaaaaaaaaaa!! - y 13/06/17
       if HayJugadasValidas(vJugadasValidas) then
         if JugadorEsHumano(jugada, vJugadores) then
           JugarHumano(jugada, vJugadores, mMatriz, vDirecciones, vJugadasValidas)
@@ -862,7 +879,7 @@ begin
           JugarGloton(jugada, mMatriz, vDirecciones, vJugadasValidas)
       else
       begin
-        if 1 = 1 then//TerminoElPartido(mMatriz, jugada) then
+        if TerminoElPartido(mMatriz, jugada) then         //AGREGAR ESTOOOO!
           //para ver si termino o si tiene que pasar nomas
           gameOver := True
         else
@@ -872,7 +889,8 @@ begin
       RefrescarPantalla(mMatriz, vJugadores);
       //DibujarTablero(mMatriz, vJugadores);
       CalcularYMostrarPuntos(mMatriz, vJugadores, false);
-      PasarTurno(jugada, vJugadasValidas, vJugadores);
+      if gameOver = false then
+            PasarTurno(jugada, vJugadasValidas, vJugadores);
       RefrescarPantalla(mMatriz, vJugadores);
       //JuegoTerminado();
     until gameOver = True; //fin repeat de todo el partido
