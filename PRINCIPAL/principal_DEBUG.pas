@@ -484,7 +484,7 @@ var
   resultado: boolean;
 begin
   resultado:= false;
-  writeln(mJugada.x,',',mJugada.y);
+  //writeln(mJugada.x,',',mJugada.y);
   if (mJugada.x <= MAX_FILASCOLUMNAS) and (mJugada.x >= MIN_FILASCOLUMNAS) then
   begin
     if (mJugada.y <= MAX_FILASCOLUMNAS) and (mJugada.y >= MIN_FILASCOLUMNAS) then
@@ -512,17 +512,17 @@ end;
       fichaRival := FICHA_NEGRA
     else
       fichaRival := FICHA_BLANCA;
-    writeln('valido las direcciones para ', mJugadaAValidar.x, ',', mJugadaAValidar.y);
+    //writeln('valido las direcciones para ', mJugadaAValidar.x, ',', mJugadaAValidar.y);
     //readln();
     for i := 1 to MAX_DIRECCIONES do
     begin
-      writeln('miro en la direccion ', i);
+      //writeln('miro en la direccion ', i);
       //readln();
-      contadorPuntosASumar := 0;
+      contadorPuntosASumar := 1;
       jugadaAux.x := mJugadaAValidar.x + mDirecciones[i].dirX;
       jugadaAux.y := mJugadaAValidar.y + mDirecciones[i].dirY;
       sigoRecorriendo := True;
-      writeln('que hay en el casillero ',jugadaAux.x,',',jugadaAux.y,'?');
+      //writeln('que hay en el casillero ',jugadaAux.x,',',jugadaAux.y,'?');
       //readln();
       if jugadaEstaEnTablero(jugadaAux) = True then
       begin
@@ -622,25 +622,25 @@ end;
         for i := 1 to MAX_FILASCOLUMNAS do
         begin
           jugadaAValidar.y := i;
-          writeln(i);
+          //writeln(i);
           //if jugadaavalidar.y = 3 then
           //   writeln('entro a la 3er fila');
           for j := 1 to MAX_FILASCOLUMNAS do
           begin
             JugadaInicializarDirsValidas(jugadaAValidar);
             jugadaAValidar.x := j;
-            writeln(j);
-            writeln('valido ',j,',',i);
+            //writeln(j);
+            //writeln('valido ',j,',',i);
             if (CasilleroEstaVacio(jugadaAValidar, mMatriz) = true) then
             begin
-              writeln(j,',',i,' esta vacio');
+              //writeln(j,',',i,' esta vacio');
               //readln();
               //jugadaAValidar no tiene ficha! solo coordenadas!!
               if ChequearJugadaValida(mMatriz, mDirecciones,
                 mJugadaTurnoActual, jugadaAValidar) = True then
                 begin
                   writeln('hay jugada valida en ',j,',',i, ', al vector!');
-                  readln();
+                  //readln();
                   AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
 
                 end;
@@ -822,6 +822,17 @@ end;
         writeln('¿Empataron? ¡Qué embole!')
   end;
 
+  procedure PasarTurno(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas; var mJugadores: tJugadores);
+  begin
+      if mJugada.jugador = FICHA_BLANCA then
+          mJugada.jugador := FICHA_NEGRA
+      else
+          mJugada.jugador := FICHA_BLANCA;
+      inicializarJugadasValidas(mJugadasValidas);
+      writeln('Jugador ', mJugadores[mJugada.jugador].Nombre, ', es su turno, presione una tecla para continuar.');
+      readln();
+  end;
+
 var
   mMatriz: tMatriz;
   vJugadores: tJugadores;
@@ -838,11 +849,11 @@ begin
     ReiniciarTablero(mMatriz);
     RefrescarPantalla(mMatriz, vJugadores);
     //empieza el partido
-  // repeat //repeat 2, de toda la partida
+    repeat //repeat 2, de toda la partida
       MostrarTurno(vJugadores, jugada);
-      writeln('listando jugadas validas');
+      //writeln('listando jugadas validas');
       ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
-      writeln('jugadas validas listadas');
+      //writeln('jugadas validas listadas');
       readln();    //falta arreglar que sume bien la ant de puntos de cada jugadaaaaaaaaaa!! - y 13/06/17
       if HayJugadasValidas(vJugadasValidas) then
         if JugadorEsHumano(jugada, vJugadores) then
@@ -858,12 +869,13 @@ begin
           writeln('Jugador ', vJugadores[jugada.jugador].Nombre,
             ', no tiene movimientos posibles, deberá pasar su turno.');
       end;
-     // RefrescarPantalla(mMatriz, vJugadores);
-      DibujarTablero(mMatriz, vJugadores);
+      RefrescarPantalla(mMatriz, vJugadores);
+      //DibujarTablero(mMatriz, vJugadores);
       CalcularYMostrarPuntos(mMatriz, vJugadores, false);
-      //PasarTurno(jugada);
+      PasarTurno(jugada, vJugadasValidas, vJugadores);
+      RefrescarPantalla(mMatriz, vJugadores);
       //JuegoTerminado();
-    //until gameOver; //fin repeat de todo el partido
+    until gameOver = True; //fin repeat de todo el partido
 
     CalcularYMostrarPuntos(mMatriz, vJugadores, true);
     MostrarGanadores(vJugadores);
