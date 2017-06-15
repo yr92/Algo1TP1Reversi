@@ -113,11 +113,12 @@ type
   end;
 
   procedure inicializarVariables(var mDirecciones: tDirecciones;
-  var mJugadasValidas: tJugadasValidas; var mJugada: trJugada);
+  var mJugadasValidas: tJugadasValidas; var mJugadasValidasRival: tJugadasValidas; var mJugada: trJugada);
   //agregar a medida que haga falta inicializar mas cosas
   begin
     inicializarDirecciones(mDirecciones);
     inicializarJugadasValidas(mJugadasValidas);
+    inicializarJugadasValidas(mJugadasValidasRival);
     mJugada.jugador := FICHA_BLANCA;
   end;
 
@@ -639,7 +640,7 @@ end;
               if ChequearJugadaValida(mMatriz, mDirecciones,
                 mJugadaTurnoActual, jugadaAValidar) = True then
                 begin
-                  writeln('hay jugada valida en ',j,',',i, ', al vector!');
+                  //writeln('hay jugada valida en ',j,',',i, ', al vector!');
                   //readln();
                   AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
 
@@ -710,6 +711,7 @@ end;
         jGloton.x := mJugadasValidas[i].x;
         jGloton.y := mJugadasValidas[i].y;
         jGloton.puntosASumar := mJugadasValidas[i].puntosASumar;
+        jGloton.direccionesValidas := mJugadasValidas[i].direccionesValidas;
       end;
       Inc(i);
     end;
@@ -723,12 +725,18 @@ end;
   begin
     ObtenerJugadaGloton(mJugadasValidas, jugadaAux);
     jugadaAux.jugador := mJugada.jugador;
-    HacerJugada(mJugada, mMatriz, mDirecciones);
+    HacerJugada(jugadaAux, mMatriz, mDirecciones);
   end;
 
   procedure mostrarTurno(var mJugadores: tJugadores; var mJugada: trJugada);
   begin
-    writeln('Jugador ' + mJugadores[mJugada.jugador].Nombre + ', es su turno.');
+    if mJugadores[mJugada.jugador].Humano = true then
+        writeln('Jugador ' + mJugadores[mJugada.jugador].Nombre + ', es su turno.')
+    else
+    begin
+        writeln('Gloton en proceso... Presione enter para continuar');
+        readln();
+    end;
   end;
 
   function otraPartida(): boolean;
@@ -822,30 +830,51 @@ end;
         writeln('¿Empataron? ¡Qué embole!')
   end;
 
-  procedure PasarTurno(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas; var mJugadores: tJugadores);
+  procedure PasarTurno(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas; var mJugadasValidasRival: tJugadasValidas; var mJugadores: tJugadores);
   begin
       if mJugada.jugador = FICHA_BLANCA then
           mJugada.jugador := FICHA_NEGRA
       else
           mJugada.jugador := FICHA_BLANCA;
       inicializarJugadasValidas(mJugadasValidas);
-      writeln('Jugador ', mJugadores[mJugada.jugador].Nombre, ', es su turno, presione una tecla para continuar.');
+      inicializarJugadasValidas(mJugadasValidasRival);
+      if mJugadores[mJugada.jugador].Humano = true then
+          writeln('Jugador ', mJugadores[mJugada.jugador].Nombre, ', es su turno, presione enter para continuar.')
+      else
+          writeln('Ahora jugara ', mJugadores[mJugada.jugador].Nombre, ', el gloton. Presione enter para continuar.');
       readln();
   end;
 
-function TerminoElPartido(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas; var mJugadores: tJugadores): boolean;
+procedure ListarJugadasValidasRival(var mMatriz: tMatriz;
+  var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores;
+  var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
+begin
+     if mJugadaTurnoActual.jugador = FICHA_BLANCA then
+        mJugadaTurnoActual.jugador := FICHA_NEGRA
+     else
+        mJugadaTurnoActual.jugador := FICHA_BLANCA;
+     ListarJugadasValidas(mMatriz, mJugadaTurnoActual, mJugadores, mDirecciones, mJugadasValidas);
+     if mJugadaTurnoActual.jugador = FICHA_BLANCA then
+        mJugadaTurnoActual.jugador := FICHA_NEGRA
+     else
+        mJugadaTurnoActual.jugador := FICHA_BLANCA;
+end;
+
+function TerminoElPartido(var mMatriz: tMatriz;
+  var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores;
+  var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas; var mJugadasValidasRival: tJugadasValidas): boolean;
 var
     res: boolean;
-    i: byte;
 begin
     res:= false;
-    if mJugada.jugador = FICHA_BLANCA then
-        mJugada.jugador := FICHA_NEGRA
-    else
-        mJugada.jugador := FICHA_BLANCA;
     inicializarJugadasValidas(mJugadasValidas);
-    writeln('Jugador ', mJugadores[mJugada.jugador].Nombre, ', es su turno, presione una tecla para continuar.');
-    readln();
+    inicializarJugadasValidas(mJugadasValidasRival);
+    ListarJugadasValidas(mMatriz, mJugadaTurnoActual, mJugadores, mDirecciones, mJugadasValidas);
+    ListarJugadasValidasRival(mMatriz, mJugadaTurnoActual, mJugadores, mDirecciones, mJugadasValidasRival);
+    if (HayJugadasValidas(mJugadasValidas) = false) and (HayJugadasValidas(mJugadasValidasRival) = false) then
+        res:= true
+    else
+        res:= false;
     TerminoElPartido := res;
 end;
 
@@ -853,13 +882,12 @@ var
   mMatriz: tMatriz;
   vJugadores: tJugadores;
   vDirecciones: tDirecciones;
-  vJugadasValidas: tJugadasValidas;
+  vJugadasValidas, vJugadasValidasRival: tJugadasValidas;
   jugada: trJugada;
-  currentPlayer: byte;//para ver de quien es el turno
-  gameOver: boolean;//duh
+  gameOver, otra: boolean;//duh
 
 begin
-  InicializarVariables(vDirecciones, vJugadasValidas, jugada);
+  InicializarVariables(vDirecciones, vJugadasValidas, vJugadasValidasRival, jugada);
   repeat  //repeat 1, solamente de cuando se arranca un partido nuevo
     PedirDatosJugadores(vJugadores);
     ReiniciarTablero(mMatriz);
@@ -879,18 +907,24 @@ begin
           JugarGloton(jugada, mMatriz, vDirecciones, vJugadasValidas)
       else
       begin
-        if TerminoElPartido(mMatriz, jugada) then         //AGREGAR ESTOOOO!
+        ListarJugadasValidasRival(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidasRival);
+        if not HayJugadasValidas(vJugadasValidasRival) then //si no hay jugadas ni del jugador ni del rival, game over
+        //if TerminoElPartido(mMatriz, jugada) then         //AGREGAR ESTOOOO!
           //para ver si termino o si tiene que pasar nomas
           gameOver := True
         else
-          writeln('Jugador ', vJugadores[jugada.jugador].Nombre,
-            ', no tiene movimientos posibles, deberá pasar su turno.');
+        begin
+            writeln('Jugador ', vJugadores[jugada.jugador].Nombre,
+            ', no tiene movimientos posibles, deberá pasar su turno. Presione enter para continuar.');
+            readln();
+        end;
       end;
       RefrescarPantalla(mMatriz, vJugadores);
       //DibujarTablero(mMatriz, vJugadores);
       CalcularYMostrarPuntos(mMatriz, vJugadores, false);
+      gameOver := TerminoElPartido(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas, vJugadasValidasRival);
       if gameOver = false then
-            PasarTurno(jugada, vJugadasValidas, vJugadores);
+            PasarTurno(jugada, vJugadasValidas, vJugadasValidasRival, vJugadores);
       RefrescarPantalla(mMatriz, vJugadores);
       //JuegoTerminado();
     until gameOver = True; //fin repeat de todo el partido
@@ -898,5 +932,6 @@ begin
     CalcularYMostrarPuntos(mMatriz, vJugadores, true);
     MostrarGanadores(vJugadores);
     //otra partida? s/n - se la banca suelta como funcion o hay que declarar var y demas?
-  until (otraPartida() = False);  //fin repeat 1,
+    otra := otraPartida;
+  until (otra = False);  //fin repeat 1,
 end.
