@@ -1,111 +1,937 @@
 program TP1Reversi;
 
-{$mode objfpc}{$H+}
-
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
-  cthreads,
-  {$ENDIF}{$ENDIF}
-  Classes, SysUtils, CustApp
-  { you can add units after this };
+  Crt;
 
+const
+  COLUMNAS = 8;
+  FILAS = 8;
+
+  FICHA_VACIA = 0;
+  FICHA_BLANCA = 1;
+  FICHA_NEGRA = 2;
+
+  LIN_HORIZONTAL = '+---+---+---+---+---+---+---+---+';
+  LIN_VERTICAL = '|';
+  TABLERO_HEADER = '    1   2   3   4   5   6   7   8';
+
+  MAX_FILASCOLUMNAS = 8;
+  MIN_FILASCOLUMNAS = 1;
+
+  MAX_DIRECCIONES = 8;
+  DIR_IZQUIERDA_ARRIBA = 1;
+  DIR_ARRIBA = 2;
+  DIR_DERECHA_ARRIBA = 3;
+  DIR_IZQUIERDA = 4;
+  DIR_DERECHA = 5;
+  DIR_IZQUIERDA_ABAJO = 6;
+  DIR_ABAJO = 7;
+  DIR_DERECHA_ABAJO = 8;
+  ARRIBA = -1;
+  ABAJO = 1;
+  IZQUIERDA = -1;
+  DERECHA = 1;
+  NEUTRO = 0;
+
+  MAX_JUGADORES = 2;
+  MAX_JUGADASVALIDAS = 32;
+
+  STR_FILA = 'fila';
+  STR_COLUMNA = 'columna';
 type
-
-  { TP1Reversi }
-
-  TP1Reversi = class(TCustomApplication)
-  protected
-    procedure DoRun; override;
-  public
-    constructor Create(TheOwner: TComponent); override;
-    destructor Destroy; override;
-    procedure WriteHelp; virtual;
+  trJugador = record
+    nombre: string;
+    ficha: char;
+    humano: boolean;
+    puntos: byte;
+    //en vez contadores sueltos, mejor que quede guardado el puntaje en cada jugador
   end;
 
-  tFicha = Byte
+  trCasilla = record
+    ficha: byte;
+  end;
+  tDireccionesValidas = array[1..MAX_DIRECCIONES] of byte;
 
-  trCasillero = record
-      ficha = tFicha;
+  trJugada = record
+    x: byte;
+    y: byte;
+    jugador: byte; //para ver que jugador hizo la jugada
+    valida: boolean;
+    mensajeError: string;
+    puntosASumar: byte;
+    direccionesValidas: tDireccionesValidas;
   end;
 
-{ TP1Reversi }
+  trDireccion = record
+    dirX: shortint;
+    dirY: shortint;
+  end;
 
-procedure TP1Reversi.DoRun;
+  tJugadasValidas = array[1..MAX_JUGADASVALIDAS] of trJugada;
+  tJugadores = array[1..MAX_JUGADORES] of trJugador;
+  tDirecciones = array[1..MAX_DIRECCIONES] of trDireccion;
+  tMatriz = array [1..FILAS, 1..COLUMNAS] of trCasilla;
+
+  procedure inicializarDirecciones(var mDirecciones: tDirecciones);
+  //esto tendria que estar en inicializarvariables()
+  begin
+    mDirecciones[DIR_IZQUIERDA_ARRIBA].dirX := IZQUIERDA;
+    mDirecciones[DIR_ARRIBA].dirX := NEUTRO;
+    mDirecciones[DIR_DERECHA_ARRIBA].dirX := DERECHA;
+    mDirecciones[DIR_IZQUIERDA].dirX := IZQUIERDA;
+    mDirecciones[DIR_DERECHA].dirX := DERECHA;
+    mDirecciones[DIR_IZQUIERDA_ABAJO].dirX := IZQUIERDA;
+    mDirecciones[DIR_ABAJO].dirX := NEUTRO;
+    mDirecciones[DIR_DERECHA_ABAJO].dirX := DERECHA;
+
+    mDirecciones[DIR_IZQUIERDA_ARRIBA].dirY := ARRIBA;
+    mDirecciones[DIR_ARRIBA].dirY := ARRIBA;
+    mDirecciones[DIR_DERECHA_ARRIBA].dirY := ARRIBA;
+    mDirecciones[DIR_IZQUIERDA].dirY := NEUTRO;
+    mDirecciones[DIR_DERECHA].dirY := NEUTRO;
+    mDirecciones[DIR_IZQUIERDA_ABAJO].dirY := ABAJO;
+    mDirecciones[DIR_ABAJO].dirY := ABAJO;
+    mDirecciones[DIR_DERECHA_ABAJO].dirY := ABAJO;
+  end;
+
+  procedure InicializarJugadasValidas(var mJugadasValidas: tJugadasValidas);
+  var
+    i: byte;
+    j: byte;
+  begin
+    for i := 1 to MAX_JUGADASVALIDAS do
+      with mJugadasValidas[i] do
+      begin
+        x := 0;
+        y := 0;
+        jugador := FICHA_VACIA; //para ver que jugador hizo la jugada
+        valida := False;
+        puntosASumar := 0;
+        for j := 1 to MAX_DIRECCIONES do
+          direccionesValidas[j] := 0;
+      end;
+  end;
+
+  procedure inicializarVariables(var mDirecciones: tDirecciones;
+  var mJugadasValidas: tJugadasValidas; var mJugadasValidasRival: tJugadasValidas; var mJugada: trJugada);
+  //agregar a medida que haga falta inicializar mas cosas
+  begin
+    inicializarDirecciones(mDirecciones);
+    inicializarJugadasValidas(mJugadasValidas);
+    inicializarJugadasValidas(mJugadasValidasRival);
+    mJugada.jugador := FICHA_BLANCA;
+  end;
+
+function ValidarSN(mDato: string): boolean;
+  begin
+    ValidarSN := ((mDato = 'S') or (mDato = 'N') or (mDato = 's') or (mDato = 'n'));
+  end;
+
+function PedirNombre(numeroJugador: byte): string;
 var
-  ErrorMsg: String;
+    nombre: string;
+    valido: boolean;
 begin
-  // quick check parameters
-  ErrorMsg:=CheckOptions('h', 'help');
-  if ErrorMsg<>'' then begin
-    ShowException(Exception.Create(ErrorMsg));
-    Terminate;
-    Exit;
-  end;
-
-  // parse parameters
-  if HasOption('h', 'help') then begin
-    WriteHelp;
-    Terminate;
-    Exit;
-  end;
-
-  { add your program here }
-  writeln('hola');
-  // stop program loop
-  Terminate;
+  valido := false;
+  repeat
+    write('Jugador ', numeroJugador, ', ingrese su nombre: ');
+    readln(nombre);
+    if nombre = '' then
+        writeln('El nombre no puede estar vacío.')
+    else
+        valido := true;
+  until valido;
+  PedirNombre := nombre;
 end;
 
-procedure ReiniciarMatriz(var mMatriz:tMatriz, maxFilas:int, maxColumnas: int)
+function PedirFicha(nombreJugador:string): char;
 var
-  i,j byte
+    dato: string;
+    valido: boolean;
+begin
+  valido := false;
+  repeat
+    write('Jugador ' + nombreJugador + ', ingrese su ficha: ');
+    readln(dato);
+    if dato = '' then
+        writeln('El nombre no puede estar vacío.')
+    else
+        begin
+          if length(dato) > 1 then
+              writeln('Ingrese solamente un caracter.')
+          else
+              valido := true;
+        end;
+  until valido;
+  PedirFicha := dato[1];
+end;
+
+function EsHumano(nombreJugador:string): boolean;
+var
+    dato: string;
+    humano: boolean;
+    valido: boolean;
+begin
+  valido := false;
+  repeat
+    write('El jugador ' + nombreJugador + ', es humano? S/N: ');
+    readln(dato);
+    if ValidarSN(dato) then
+    begin
+        if (dato = 'S') or (dato = 's') then
+            humano := true
+        else
+            humano := false;
+        valido := true;
+    end
+  until valido;
+  EsHumano := humano;
+end;
+
+procedure PedirDatosJugadores(var mJugadores: tJugadores);
+var
+    i: byte;
+begin
+    for i := 1 to MAX_JUGADORES do
+      begin
+        mJugadores[i].nombre := PedirNombre(i);
+        mJugadores[i].ficha := PedirFicha(mJugadores[i].nombre);
+        mJugadores[i].humano := EsHumano(mJugadores[i].nombre);
+        mJugadores[i].puntos := 0;
+      end;
+end;
+
+procedure LimpiarMatriz(var mMatriz:tMatriz);
+var
+  i,j: byte;
+begin
+  for i:= 1 to FILAS do
+    for j:=1 to COLUMNAS do
+        mMatriz[i,j].ficha := FICHA_VACIA;
+end;
+
+procedure InicializarMatriz(var mMatriz: tMatriz);
+begin
+    mMatriz[4,4].ficha := FICHA_BLANCA;
+    mMatriz[5,5].ficha := FICHA_BLANCA;
+    mMatriz[4,5].ficha := FICHA_NEGRA;
+    mMatriz[5,4].ficha := FICHA_NEGRA;
+end;
+
+procedure ReiniciarTablero(var mMatriz: tMatriz);
 begin
   LimpiarMatriz(mMatriz);
   InicializarMatriz(mMatriz);
-end
-
-procedure LimpiarMatriz(var mMatriz:tMatriz, maxFilas:int, maxColumnas: int)
-var
-  i,j byte
-begin
-  for i:= 1 to maxFilas do
-    for j:=1 to maxFilas do
-        mMatriz[i,j].ficha = FICHAVACIA;
-end
-
-Procedure InicializarMatriz(var mMatriz:tMatriz)
-var
-  i,j byte
-begin
-    mMatriz[4,4].ficha = FICHABLANCA;
-    mMatriz[5,5].ficha = FICHABLANCA;
-    mMatriz[4,5].ficha = FICHANEGRA;
-    mMatriz[4,4].ficha = FICHANEGRA;
-end
-
-
-constructor TP1Reversi.Create(TheOwner: TComponent);
-begin
-  inherited Create(TheOwner);
-  StopOnException:=True;
 end;
 
-destructor TP1Reversi.Destroy;
+procedure DibujarTablero(var mMatriz: tMatriz; var mJugadores: tJugadores);
+  var
+    i, j: byte;
+  begin
+    writeln(TABLERO_HEADER);
+    writeln('  ', LIN_HORIZONTAL);
+    for i := 1 to MAX_FILASCOLUMNAS do
+    begin
+      Write(i);
+      for j := 1 to MAX_FILASCOLUMNAS do
+      begin
+        Write(' ', LIN_VERTICAL, ' ');
+        if (mMatriz[i, j].ficha <> FICHA_VACIA) then
+          Write(mJugadores[mMatriz[i, j].ficha].ficha)
+        else
+          Write(' ');
+      end;
+      Write(' ', LIN_VERTICAL);
+      writeln;
+      Write('  ', LIN_HORIZONTAL);
+      writeln;
+    end;
+  end;
+
+  function CasilleroEstaVacio(var mJugada: trJugada; var mMatriz: tMatriz): boolean;
+  var
+    vacio: boolean;
+  begin
+    //writeln('estoy validando en CasilleroEstaVacio()');
+    //readln();
+    if mMatriz[mJugada.x, mJugada.y].ficha = FICHA_VACIA then
+      vacio := True
+    else
+      vacio := False;
+    CasilleroEstaVacio := vacio;
+    //writeln(vacio);
+    //readln();
+  end;
+
+  function CasilleroHayFicha(var mJugadaAValidar: trJugada;
+    fichaAEncontrar: byte; var mMatriz: tMatriz): boolean;
+    //en mJugadaAValidar van las coords de donde queremos ir y el tipo de ficha que queremos encontrar!
+  var
+    resultado: boolean;
+  begin
+    resultado := false;
+    //writeln('estoy en casillerohayficha');
+    //readln();
+    if CasilleroEstaVacio(mJugadaAValidar, mMatriz) = False then
+    begin
+      if (mMatriz[mJugadaAValidar.x, mJugadaAValidar.y].ficha = fichaAEncontrar) then
+         //begin
+              resultado := True;
+         //end
+      //else
+      //begin
+            //writeln('hay ficha propia');
+           // readln();
+        //end;
+
+      //else
+        //resultado := False;
+      //CasilleroHayFichaRival:= resultado;
+    end;
+    CasilleroHayFicha := resultado;
+  end;
+
+  procedure voltearFichas(var mJugada: trJugada; var mMatriz: tMatriz;
+  var mDirecciones: tDirecciones; mDireccion: byte);
+  var
+    jugadaAux: trJugada;
+    sigoRecorriendo: boolean;
+  begin
+    jugadaAux.x := mJugada.x +
+      mDirecciones[mJugada.direccionesValidas[mDireccion]].dirX;
+    jugadaAux.y := mJugada.y +
+      mDirecciones[mJugada.direccionesValidas[mDireccion]].dirY;
+    sigoRecorriendo := True;
+    mMatriz[mJugada.x, mJugada.y].ficha := mJugada.jugador;
+    while sigoRecorriendo = True do
+    begin
+      if CasilleroHayFicha(jugadaAux, mJugada.jugador, mMatriz) = True then
+        sigoRecorriendo := False
+      else //hay otra ficha rival
+      begin
+        mMatriz[jugadaAux.x, jugadaAux.y].ficha := mJugada.jugador;
+        jugadaAux.x := jugadaAux.x +
+          mDirecciones[mJugada.direccionesValidas[mDireccion]].dirX;
+        jugadaAux.y := jugadaAux.y +
+          mDirecciones[mJugada.direccionesValidas[mDireccion]].dirY;
+      end;
+    end;
+  end;
+
+  procedure HacerJugada(var mJugada: trJugada; var mMatriz: tMatriz;
+  var mDirecciones: tDirecciones);
+  var
+    i: byte;
+    sigoRecorriendo: boolean;
+    //direccionValida: boolean;
+    //contadorPuntosASumar: byte;
+  begin
+    i := 0;
+    sigoRecorriendo := True;
+    while ((i < MAX_DIRECCIONES) and sigoRecorriendo = True) do
+    begin
+      Inc(i);
+      if mJugada.direccionesValidas[i] > 0 then
+        voltearFichas(mJugada, mMatriz, mDirecciones, i)
+      else
+        sigoRecorriendo := False;
+    end;
+  end;
+
+  function JugadaEstaEnCursorValidas(var mJugada: trJugada;
+  var mJugadasValidas: tJugadasValidas): boolean;
+  var
+    i: byte;
+    resultado: boolean;
+  begin
+    i := 1;
+    resultado := False;
+    while (i <= MAX_JUGADASVALIDAS) and (mJugadasValidas[i].x <> 0) and (resultado = False) do
+    begin
+      if (mJugadasValidas[i].x = mJugada.x) and (mJugadasValidas[i].y = mJugada.y) then
+      begin
+        resultado := True;
+        mJugada.direccionesValidas:= mJugadasValidas[i].direccionesValidas;
+      end;
+      Inc(i);
+    end;
+    JugadaEstaEnCursorValidas := resultado;
+  end;
+
+  function validarTexto(mDato: string): boolean;
+  var
+    valido: boolean;
+    I, L, Code : Integer;
+  begin
+    val(mDato,I,Code);
+    //writeln (length(mDato));
+    L := length(mDato);
+    //readln();
+    if (L = 1) and (I > 0) and (I < 9) then
+      valido := True
+    else
+      valido := False;
+    validarTexto := valido;
+  end;
+
+  procedure IngresarCoordenada(var mJugada: trJugada; var mJugadores: tJugadores;
+    filaOcolumna: string);
+  var
+    dato: string;
+    valido: boolean;
+    code: integer;
+  begin
+    repeat
+      writeln('Jugador ' , mJugadores[mJugada.jugador].nombre , ', ingrese la ' ,
+        filaOcolumna , ' de su jugada: ');
+      readln(dato);
+      if validarTexto(dato) = False then
+        writeln('Dato invalido. El valor ingresado debe ser un unico numero entre 1 y 8.')
+      else
+        valido := True;
+    until valido;
+    if filaOcolumna = STR_FILA then
+      val(dato,mJugada.X,code)
+    else
+      val(dato,mJugada.Y,code)
+  end;
+
+  procedure MostrarErrorJugada(var mJugada: trJugada);
+  begin
+    writeln('La jugada no es valida. ' , mJugada.mensajeError);
+  end;
+
+  procedure IngresarJugada(var mJugada: trJugada; var mJugadores: tJugadores);
+  begin
+    IngresarCoordenada(mJugada, mJugadores, STR_COLUMNA);
+    IngresarCoordenada(mJugada, mJugadores, STR_FILA);
+  end;
+
+  function HayCasillasVacias(var mMatriz: tMatriz): boolean;
+  var
+    i: byte;
+    j: byte;
+    resultado: boolean;
+  begin
+    resultado := False;
+    i := 1;
+    j := 1;
+    //writeln('casillas vacias, hay o no hay?');
+    while (i < MAX_FILASCOLUMNAS) and resultado = False do
+    begin
+      while (j < MAX_FILASCOLUMNAS) and resultado = False do
+      begin
+        //writeln('probando probando');
+        if mMatriz[i, j].ficha <> FICHA_VACIA then
+          resultado := True;
+        inc(j);
+      end;
+      inc(i);
+    end;
+    HayCasillasVacias := resultado;
+  end;
+
+  function HayFichasAmbosColores(var mMatriz: tMatriz): boolean;
+  var
+    i: byte;
+    j: byte;
+    hayBlancas: boolean;
+    hayNegras: boolean;
+    resultado: boolean;
+  begin
+    resultado := False;
+    i := 1;
+    j := 1;
+    while (i < MAX_FILASCOLUMNAS) and resultado = False do
+    begin
+      while (j < MAX_FILASCOLUMNAS) and resultado = False do
+      begin
+        if mMatriz[i, j].ficha <> FICHA_VACIA then
+        begin
+          if mMatriz[i, j].ficha = FICHA_BLANCA then
+            hayBlancas := True
+          else
+            hayNegras := True;
+          if (hayBlancas = True and hayNegras = True) then
+            resultado := True;
+        end;
+        inc(j);
+      end;
+      inc(i);
+    end;
+    HayFichasAmbosColores := resultado;
+  end;
+
+  procedure JugadaAgregarDireccionValida(var mJugada: trJugada; direccion: byte);
+  var
+    i: byte;
+    guardado: boolean;
+  begin
+    i := 0;
+    guardado := False;
+    while (i < MAX_DIRECCIONES) and guardado <> True do
+    begin
+      i := i + 1;
+      if mJugada.direccionesValidas[i] = 0 then
+      begin
+        mJugada.direccionesValidas[i] := direccion;
+        guardado := True;
+      end;
+    end;
+  end;
+
+function jugadaEstaEnTablero(var mJugada: trJugada): boolean;
+var
+  resultado: boolean;
 begin
-  inherited Destroy;
+  resultado:= false;
+  //writeln(mJugada.x,',',mJugada.y);
+  if (mJugada.x <= MAX_FILASCOLUMNAS) and (mJugada.x >= MIN_FILASCOLUMNAS) then
+  begin
+    if (mJugada.y <= MAX_FILASCOLUMNAS) and (mJugada.y >= MIN_FILASCOLUMNAS) then
+      resultado := True
+
+  end;
+  jugadaEstaEnTablero := resultado;
 end;
 
-procedure TP1Reversi.WriteHelp;
+  function ChequearJugadaValida(var mMatriz: tMatriz; var mDirecciones: tDirecciones;
+  var mJugadaTurnoActual, mJugadaAValidar: trJugada): boolean;
+  var
+    i: byte;
+    fichaJugador: byte;
+    fichaRival: byte;
+    jugadaAux: trJugada;
+    sigoRecorriendo: boolean;
+    esValida: boolean;
+    contadorPuntosASumar: byte;
+  begin
+    mjugadaAValidar.puntosASumar := 1;
+    esValida := False;
+    fichaJugador := mJugadaTurnoActual.jugador;
+    if fichaJugador = FICHA_BLANCA then
+      fichaRival := FICHA_NEGRA
+    else
+      fichaRival := FICHA_BLANCA;
+    //writeln('valido las direcciones para ', mJugadaAValidar.x, ',', mJugadaAValidar.y);
+    //readln();
+    for i := 1 to MAX_DIRECCIONES do
+    begin
+      //writeln('miro en la direccion ', i);
+      //readln();
+      contadorPuntosASumar := 0;
+      jugadaAux.x := mJugadaAValidar.x + mDirecciones[i].dirX;
+      jugadaAux.y := mJugadaAValidar.y + mDirecciones[i].dirY;
+      sigoRecorriendo := True;
+      //writeln('que hay en el casillero ',jugadaAux.x,',',jugadaAux.y,'?');
+      //readln();
+      if jugadaEstaEnTablero(jugadaAux) = True then
+      begin
+        //writeln('esta en el tablero, sigo validando');
+        //readln();
+        if CasilleroEstaVacio(jugadaAux, mMatriz) = False then
+        begin
+          //writeln('no esta vacio!');
+          //readln();
+          if CasilleroHayFicha(jugadaAux, fichaRival, mMatriz) = True then
+          begin
+            //encontre una ficha rival, empiezo a recorrer en la direccion
+            //writeln('encontre una ficha rival en ', jugadaAux.x , ',', jugadaAux.y , ', empiezo a recorrer en la direccion');
+            //readln();
+            jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
+            jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
+            while (jugadaEstaEnTablero(jugadaAux) = True) and
+              (CasilleroEstaVacio(jugadaAux, mMatriz) = False) and (sigoRecorriendo = True) do
+            begin
+              //writeln('estoy recorriendo :D');
+              //readln();
+              Inc(contadorPuntosASumar);
+              if CasilleroHayFicha(jugadaAux, fichaJugador, mMatriz) = True then
+              begin
+                sigoRecorriendo := False;
+                esValida := True;
+                mjugadaAValidar.puntosASumar :=
+                  mjugadaAValidar.puntosASumar + contadorPuntosASumar;
+                JugadaAgregarDireccionValida(mJugadaAValidar, i);
+              end
+              else //hay otra ficha rival
+              begin
+                //writeln('hay ficha rival, sigo recorriendo');
+                jugadaAux.x := jugadaAux.x + mDirecciones[i].dirX;
+                jugadaAux.y := jugadaAux.y + mDirecciones[i].dirY;
+              end;
+            end;
+          end;
+        end;
+      end;
+
+    end;
+    //writeln('la jugada no es valida');
+    //readln();
+    ChequearJugadaValida := esValida;
+  end;
+
+  procedure AgregarJugadaValida(var mJugada: trJugada;
+  var mJugadasValidas: tJugadasValidas);
+  var
+    i: byte;
+    guardado: boolean;
+  begin
+    i := 0;
+    guardado := False;
+    while (i < MAX_JUGADASVALIDAS) and (guardado = False) do
+    begin
+      Inc(i);
+      if mJugadasValidas[i].x = 0 then
+      begin
+        mJugadasValidas[i].x := mJugada.x;
+        mJugadasValidas[i].y := mJugada.y;
+        mJugadasValidas[i].puntosASumar := mJugada.puntosASumar;
+        guardado := True;
+        mJugadasValidas[i].direccionesValidas := mJugada.direccionesValidas;
+      end;
+    end;
+  end;
+
+ procedure JugadaInicializarDirsValidas (var mJugada: trJugada);
+ var
+   i: byte;
+ begin
+   for i := 1 to MAX_DIRECCIONES do
+   begin
+     mJugada.direccionesValidas[i] := 0;
+   end;
+ end;
+
+  procedure ListarJugadasValidas(var mMatriz: tMatriz;
+  var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores;
+  var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
+  var
+    i: byte;
+    j: byte;
+    jugadaAValidar: trJugada;
+  begin
+    if HayCasillasVacias(mMatriz) then
+    begin
+      //writeln('hay casillas vacias');
+      //  readln();
+      if HayFichasAmbosColores(mMatriz) then
+      begin
+        //writeln('hay dfe ambos colores');
+        //writeln('empezando a validarrrrr');
+        //readln();
+        for i := 1 to MAX_FILASCOLUMNAS do
+        begin
+          jugadaAValidar.y := i;
+          //writeln(i);
+          //if jugadaavalidar.y = 3 then
+          //   writeln('entro a la 3er fila');
+          for j := 1 to MAX_FILASCOLUMNAS do
+          begin
+            JugadaInicializarDirsValidas(jugadaAValidar);
+            jugadaAValidar.x := j;
+            //writeln(j);
+            //writeln('valido ',j,',',i);
+            if (CasilleroEstaVacio(jugadaAValidar, mMatriz) = true) then
+            begin
+              //writeln(j,',',i,' esta vacio');
+              //readln();
+              //jugadaAValidar no tiene ficha! solo coordenadas!!
+              if ChequearJugadaValida(mMatriz, mDirecciones,
+                mJugadaTurnoActual, jugadaAValidar) = True then
+                begin
+                  //writeln('hay jugada valida en ',j,',',i, ', al vector!');
+                  //readln();
+                  AgregarJugadaValida(jugadaAValidar, mJugadasValidas);
+
+                end;
+            end;
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  function HayJugadasValidas(var mJugadasValidas: tJugadasValidas): boolean;
+    //si encuentra el primer reg del vector vacio, asume que todo lo demas tmb esta, ergo no hay jugadas validas
+  var
+    resultado: boolean;
+  begin
+    if mJugadasValidas[1].x = 0 then
+      resultado := False
+    else
+      resultado := True;
+    HayJugadasValidas := resultado;
+  end;
+
+  procedure RefrescarPantalla(var mMatriz: tMatriz; var mJugadores: tJugadores);
+  begin
+    ClrScr;
+    DibujarTablero(mMatriz, mJugadores);
+  end;
+
+  procedure IngresarYValidarJugada(var mJugada: trJugada; var mJugadores: tJugadores; var mJugadasValidas: tJugadasValidas);
+  begin
+      IngresarJugada(mJugada, mJugadores);
+      if JugadaEstaEnCursorValidas(mJugada, mJugadasValidas) = true then
+         mJugada.valida:= true
+      else
+         mJugada.valida:= false;
+  end;
+
+  procedure JugarHumano(var mJugada: trJugada; var mJugadores: tJugadores;
+  var mMatriz: tMatriz; var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
+  begin
+    repeat
+      IngresarYValidarJugada(mJugada, mJugadores, mJugadasValidas);      //el debug ahora llega hasta aca! - y 13/06/17
+      if mJugada.valida = True then
+        HacerJugada(mJugada, mMatriz, mDirecciones)
+      else
+      begin
+        RefrescarPantalla(mMatriz, mJugadores);
+        MostrarErrorJugada(mJugada)
+      end;
+    until mJugada.valida;
+  end;
+
+  procedure ObtenerJugadaGloton(var mJugadasValidas: tJugadasValidas;
+  var mJugadaGloton: trJugada);
+  var
+    jGloton: trJugada;
+    i: byte;
+  begin
+    i := 1;
+    jGloton.x := 0;
+    jGloton.y := 0;
+    jGloton.puntosASumar := 0;
+    while (i < MAX_JUGADASVALIDAS) and (mJugadasValidas[i].x > 0) do
+    begin
+      if (mJugadasValidas[i].puntosASumar > jgloton.puntosASumar) then
+      begin
+        jGloton.x := mJugadasValidas[i].x;
+        jGloton.y := mJugadasValidas[i].y;
+        jGloton.puntosASumar := mJugadasValidas[i].puntosASumar;
+        jGloton.direccionesValidas := mJugadasValidas[i].direccionesValidas;
+      end;
+      Inc(i);
+    end;
+    mJugadaGloton := jGloton;
+  end;
+
+  procedure JugarGloton(var mJugada: trJugada; var mMatriz: tMatriz;
+  var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
+  var
+    jugadaAux: trJugada;
+  begin
+    ObtenerJugadaGloton(mJugadasValidas, jugadaAux);
+    jugadaAux.jugador := mJugada.jugador;
+    HacerJugada(jugadaAux, mMatriz, mDirecciones);
+  end;
+
+  procedure mostrarTurno(var mJugadores: tJugadores; var mJugada: trJugada);
+  begin
+    if mJugadores[mJugada.jugador].Humano = true then
+        writeln('Jugador ' + mJugadores[mJugada.jugador].Nombre + ', es su turno.')
+    else
+    begin
+        writeln('Gloton en proceso... Presione enter para continuar');
+        readln();
+    end;
+  end;
+
+  function otraPartida(): boolean;
+  var
+    dato: string;
+    valido: boolean;
+    resultado: boolean;
+  begin
+    valido := False;
+    repeat
+      Write('Juego terminado - Otra partida? S/N: ');
+      Read(dato);
+      readln();
+      if ValidarSN(dato) = True then
+        valido := True;
+    until valido = True;
+    if dato = 'S' then
+      resultado := True
+    else
+      resultado := False;
+    otraPartida := resultado;
+  end;
+
+  procedure LimpiarJugadasValidas(var mJugadasValidas: tJugadasValidas);
+  var
+    i: byte;
+  begin
+    i := 1;
+    while (i < MAX_JUGADASVALIDAS) and (mJugadasValidas[i].valida = True) do
+    begin
+        mJugadasValidas[i].x := 0;
+        mJugadasValidas[i].y := 0;
+        mJugadasValidas[i].jugador := FICHA_VACIA;
+        mJugadasValidas[i].valida := False;
+        Inc(i);
+    end;
+  end;
+
+  function JugadorEsHumano(var mJugada: trJugada; var mJugadores: tJugadores): boolean;
+  var
+    resultado: boolean;
+  begin
+    if mJugadores[mJugada.jugador].humano then
+      resultado := True
+    else
+      resultado := False;
+    JugadorEsHumano := resultado;
+  end;
+
+  procedure CalcularPuntos(var mMatriz: tMatriz; var mJugadores: tJugadores);
+  var
+      i,j: byte;
+  begin
+    mJugadores[FICHA_BLANCA].puntos := 0;
+    mJugadores[FICHA_NEGRA].puntos := 0;
+    for i:= 1 to MAX_FILASCOLUMNAS do
+      for j:=1 to MAX_FILASCOLUMNAS do
+          if mMatriz[i,j].ficha <> FICHA_VACIA then
+             if mMatriz[i,j].ficha = FICHA_BLANCA then
+               inc(mJugadores[FICHA_BLANCA].puntos)
+             else
+               inc(mJugadores[FICHA_NEGRA].puntos)
+  end;
+
+  procedure MostrarPuntos(var mJugadores: tJugadores; esResultadoFinal: boolean);
+  begin
+    if esResultadoFinal = true then writeln('RESULTADO FINAL DEL PARTIDO:');
+    writeln('Jugador ' + mJugadores[FICHA_BLANCA].nombre , ': ' , mJugadores[FICHA_BLANCA].puntos , ' puntos.');
+    writeln('Jugador ' + mJugadores[FICHA_NEGRA].nombre , ': ' , mJugadores[FICHA_NEGRA].puntos , ' puntos.');
+  end;
+
+  procedure CalcularYMostrarPuntos(var mMatriz: tMatriz; var mJugadores: tJugadores; esResultadoFinal: boolean);
+  begin
+       CalcularPuntos(mMatriz, mJugadores);
+       MostrarPuntos(mJugadores, esResultadoFinal);
+  end;
+
+  procedure MostrarGanadores(var mJugadores: tJugadores);
+  var
+      ganador: byte;
+  begin
+    if mJugadores[FICHA_BLANCA].puntos <>  mJugadores[FICHA_NEGRA].puntos then
+    begin
+         if mJugadores[FICHA_BLANCA].puntos >  mJugadores[FICHA_NEGRA].puntos then
+            ganador := FICHA_BLANCA
+         else
+            ganador := FICHA_NEGRA;
+         writeln ('Felicidades ' , mJugadores[ganador].nombre , ', ganaste!');
+    end
+    else
+        writeln('¿Empataron? ¡Qué embole!')
+  end;
+
+  procedure PasarTurno(var mJugada: trJugada; var mJugadasValidas: tJugadasValidas; var mJugadasValidasRival: tJugadasValidas; var mJugadores: tJugadores);
+  begin
+      if mJugada.jugador = FICHA_BLANCA then
+          mJugada.jugador := FICHA_NEGRA
+      else
+          mJugada.jugador := FICHA_BLANCA;
+      inicializarJugadasValidas(mJugadasValidas);
+      inicializarJugadasValidas(mJugadasValidasRival);
+      if mJugadores[mJugada.jugador].Humano = true then
+          writeln('Jugador ', mJugadores[mJugada.jugador].Nombre, ', es su turno, presione enter para continuar.')
+      else
+          writeln('Ahora jugara ', mJugadores[mJugada.jugador].Nombre, ', el gloton. Presione enter para continuar.');
+      readln();
+  end;
+
+procedure ListarJugadasValidasRival(var mMatriz: tMatriz;
+  var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores;
+  var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas);
 begin
-  { add your help code here }
-  writeln('Usage: ', ExeName, ' -h');
+     if mJugadaTurnoActual.jugador = FICHA_BLANCA then
+        mJugadaTurnoActual.jugador := FICHA_NEGRA
+     else
+        mJugadaTurnoActual.jugador := FICHA_BLANCA;
+     ListarJugadasValidas(mMatriz, mJugadaTurnoActual, mJugadores, mDirecciones, mJugadasValidas);
+     if mJugadaTurnoActual.jugador = FICHA_BLANCA then
+        mJugadaTurnoActual.jugador := FICHA_NEGRA
+     else
+        mJugadaTurnoActual.jugador := FICHA_BLANCA;
+end;
+
+function TerminoElPartido(var mMatriz: tMatriz;
+  var mJugadaTurnoActual: trJugada; var mJugadores: tJugadores;
+  var mDirecciones: tDirecciones; var mJugadasValidas: tJugadasValidas; var mJugadasValidasRival: tJugadasValidas): boolean;
+var
+    res: boolean;
+begin
+    res:= false;
+    inicializarJugadasValidas(mJugadasValidas);
+    inicializarJugadasValidas(mJugadasValidasRival);
+    ListarJugadasValidas(mMatriz, mJugadaTurnoActual, mJugadores, mDirecciones, mJugadasValidas);
+    ListarJugadasValidasRival(mMatriz, mJugadaTurnoActual, mJugadores, mDirecciones, mJugadasValidasRival);
+    if (HayJugadasValidas(mJugadasValidas) = false) and (HayJugadasValidas(mJugadasValidasRival) = false) then
+        res:= true
+    else
+        res:= false;
+    TerminoElPartido := res;
 end;
 
 var
-  Application: TP1Reversi;
+  mMatriz: tMatriz;
+  vJugadores: tJugadores;
+  vDirecciones: tDirecciones;
+  vJugadasValidas, vJugadasValidasRival: tJugadasValidas;
+  jugada: trJugada;
+  gameOver, otra: boolean;//duh
+
 begin
-  Application:=TP1Reversi.Create(nil);
-  Application.Title:='TP1Reversi';
-  Application.Run;
-  Application.Free;
+  InicializarVariables(vDirecciones, vJugadasValidas, vJugadasValidasRival, jugada);
+  repeat  //repeat 1, solamente de cuando se arranca un partido nuevo
+    PedirDatosJugadores(vJugadores);
+    ReiniciarTablero(mMatriz);
+    RefrescarPantalla(mMatriz, vJugadores);
+    //ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
+    //empieza el partido
+    repeat //repeat 2, de toda la partida
+      MostrarTurno(vJugadores, jugada);
+      //writeln('listando jugadas validas');
+      ListarJugadasValidas(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas);
+      //writeln('jugadas validas listadas');
+      //readln();    //falta arreglar que sume bien la ant de puntos de cada jugadaaaaaaaaaa!! - y 13/06/17
+      if HayJugadasValidas(vJugadasValidas) then
+        if JugadorEsHumano(jugada, vJugadores) then
+          JugarHumano(jugada, vJugadores, mMatriz, vDirecciones, vJugadasValidas)
+        else
+          JugarGloton(jugada, mMatriz, vDirecciones, vJugadasValidas)
+      else
+      begin
+        ListarJugadasValidasRival(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidasRival);
+        if not HayJugadasValidas(vJugadasValidasRival) then //si no hay jugadas ni del jugador ni del rival, game over
+        //if TerminoElPartido(mMatriz, jugada) then         //AGREGAR ESTOOOO!
+          //para ver si termino o si tiene que pasar nomas
+          gameOver := True
+        else
+        begin
+            writeln('Jugador ', vJugadores[jugada.jugador].Nombre,
+            ', no tiene movimientos posibles, deberá pasar su turno. Presione enter para continuar.');
+            readln();
+        end;
+      end;
+      RefrescarPantalla(mMatriz, vJugadores);
+      //DibujarTablero(mMatriz, vJugadores);
+      CalcularYMostrarPuntos(mMatriz, vJugadores, false);
+      gameOver := TerminoElPartido(mMatriz, jugada, vJugadores, vDirecciones, vJugadasValidas, vJugadasValidasRival);
+      if gameOver = false then
+            PasarTurno(jugada, vJugadasValidas, vJugadasValidasRival, vJugadores);
+      RefrescarPantalla(mMatriz, vJugadores);
+      //JuegoTerminado();
+    until gameOver = True; //fin repeat de todo el partido
+
+    CalcularYMostrarPuntos(mMatriz, vJugadores, true);
+    MostrarGanadores(vJugadores);
+    //otra partida? s/n - se la banca suelta como funcion o hay que declarar var y demas?
+    otra := otraPartida;
+  until (otra = False);  //fin repeat 1,
 end.
-
