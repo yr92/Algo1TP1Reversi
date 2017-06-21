@@ -6,6 +6,7 @@
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -30,64 +31,11 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="13">
+    <Units Count="1">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="m_inicializarmatriz.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="m_InicializarMatriz"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="tableroInicial.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="m_mostrarpuntos.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="m_MostrarPuntos"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="m_main.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Reversi"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="m_validacionjugadas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="m_ValidacionJugadas"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="tableroInicial_2.0.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="m_DatosJugadores.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="InvertirFichas.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="Jugadas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="REVERSI"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="reversi.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="Gloton.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

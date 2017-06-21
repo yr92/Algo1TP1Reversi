@@ -4,105 +4,191 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="14">
+    <Units Count="1">
       <Unit0>
         <Filename Value="TP1Reversi.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="11"/>
-        <CursorPos X="16" Y="16"/>
-        <UsageCount Value="22"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="852"/>
+        <CursorPos X="39" Y="862"/>
+        <UsageCount Value="114"/>
         <Loaded Value="True"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="m_inicializarmatriz.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="m_InicializarMatriz"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="22"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="tableroInicial.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="m_mostrarpuntos.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="m_MostrarPuntos"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="23"/>
-        <UsageCount Value="22"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="m_main.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Reversi"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="123" Y="19"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="m_validacionjugadas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="m_ValidacionJugadas"/>
-        <UsageCount Value="22"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="tableroInicial_2.0.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="m_DatosJugadores.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="Comienzo y Mostrar Matriz.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="InvertirFichas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="Jugadas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="REVERSI"/>
-        <UsageCount Value="22"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="reversi.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="Gloton.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UsageCount Value="22"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="PRINCIPAL.pas"/>
-        <UnitName Value="Reversi"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="701"/>
-        <CursorPos X="81" Y="24"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit13>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="750" TopLine="746"/>
       </Position1>
       <Position2>
         <Filename Value="TP1Reversi.pas"/>
-        <Caret Line="16" Column="16" TopLine="11"/>
+        <Caret Line="751" TopLine="746"/>
       </Position2>
+      <Position3>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="756" Column="43" TopLine="746"/>
+      </Position3>
+      <Position4>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="753" TopLine="746"/>
+      </Position4>
+      <Position5>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="754" TopLine="746"/>
+      </Position5>
+      <Position6>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="755" TopLine="746"/>
+      </Position6>
+      <Position7>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="756" TopLine="746"/>
+      </Position7>
+      <Position8>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="759" TopLine="746"/>
+      </Position8>
+      <Position9>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="760" TopLine="746"/>
+      </Position9>
+      <Position10>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="935" TopLine="915"/>
+      </Position10>
+      <Position11>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="893" Column="6" TopLine="880"/>
+      </Position11>
+      <Position12>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="198" Column="40" TopLine="182"/>
+      </Position12>
+      <Position13>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="850" Column="20" TopLine="834"/>
+      </Position13>
+      <Position14>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="829" Column="43" TopLine="816"/>
+      </Position14>
+      <Position15>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="821" Column="49" TopLine="808"/>
+      </Position15>
+      <Position16>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="870" Column="27" TopLine="844"/>
+      </Position16>
+      <Position17>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="869" Column="22" TopLine="844"/>
+      </Position17>
+      <Position18>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="865" Column="21" TopLine="847"/>
+      </Position18>
+      <Position19>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="875" Column="26" TopLine="850"/>
+      </Position19>
+      <Position20>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="872" Column="12" TopLine="850"/>
+      </Position20>
+      <Position21>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="880" Column="26" TopLine="850"/>
+      </Position21>
+      <Position22>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="43" Column="22" TopLine="10"/>
+      </Position22>
+      <Position23>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="882" Column="37" TopLine="853"/>
+      </Position23>
+      <Position24>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="837" Column="138" TopLine="823"/>
+      </Position24>
+      <Position25>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="879" Column="26" TopLine="854"/>
+      </Position25>
+      <Position26>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="876" Column="14" TopLine="854"/>
+      </Position26>
+      <Position27>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="856" Column="20" TopLine="851"/>
+      </Position27>
+      <Position28>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="879" Column="49" TopLine="862"/>
+      </Position28>
+      <Position29>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="841" Column="5" TopLine="826"/>
+      </Position29>
+      <Position30>
+        <Filename Value="TP1Reversi.pas"/>
+        <Caret Line="860" Column="75" TopLine="849"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="7">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="PRINCIPAL\principal.pas"/>
+        <Line Value="455"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="PRINCIPAL\principal.pas"/>
+        <Line Value="282"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="PRINCIPAL\principal_DEBUG.pas"/>
+        <Line Value="910"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="PRINCIPAL\principal_DEBUG.pas"/>
+        <Line Value="875"/>
+      </Item4>
+      <Item5>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="PRINCIPAL\principal_DEBUG.pas"/>
+        <Line Value="932"/>
+      </Item5>
+      <Item6>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="TP1Reversi.pas"/>
+        <Line Value="693"/>
+      </Item6>
+      <Item7>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="TP1Reversi.pas"/>
+        <Line Value="701"/>
+      </Item7>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>

@@ -2,5 +2,4 @@
 <CONFIG>
   <Compiler Value="C:\lazarus\fpc\3.0.2\bin\i386-win32\fpc.exe" Date="1247517510"/>
   <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq &quot;-FiC:\Users\Yoel\Google Drive\FIUBA\01 Algoritmos I\Algo1TP1Reversi\lib\i386-win32&quot; &quot;-FuC:\Users\Yoel\Google Drive\FIUBA\01 Algoritmos I\Algo1TP1Reversi\&quot; &quot;-FUC:\Users\Yoel\Google Drive\FIUBA\01 Algoritmos I\Algo1TP1Reversi\lib\i386-win32\&quot; TP1Reversi.pas"/>
-  <Complete Value="False"/>
 </CONFIG>
